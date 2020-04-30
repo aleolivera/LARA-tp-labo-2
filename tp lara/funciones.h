@@ -128,13 +128,13 @@ bool cargarPlatos(){
     }
     system("cls");
     cout << "INGRESO DE PLATOS." << endl<< endl;
-    cout << "ID:";
+    cout << "ID: ";
     cin >> reg.IDplato;
     if (validarID(reg.IDplato)==-1){
         fclose(p);
         return false;
     }
-    cout << "NOMBRE DEL PLATO:";
+    cout << "NOMBRE DEL PLATO: ";
     cin.ignore();
     cin.getline(reg.nombre,49);
     if (reg.nombre[0]=='\0'){
@@ -143,7 +143,7 @@ bool cargarPlatos(){
         fclose(p);
         return false;
     }
-    cout << "COSTO DE PREPARACION:";
+    cout << "COSTO DE PREPARACION: $";
     cin >> reg.costo;
     if (reg.costo<0){
         system("cls");
@@ -151,13 +151,13 @@ bool cargarPlatos(){
         fclose(p);
         return false;
     }
-    cout << "IMPORTE DE VENTA $:";
+    cout << "IMPORTE DE VENTA: $";
     cin >> reg.imp;
     if (!validarImporte(&reg)){
         fclose(p);
         return false;
     }
-    cout << "TIEMPO DE PREPARACION:";
+    cout << "TIEMPO DE PREPARACION (MINUTOS): ";
     cin >> reg.TiempoPrep;
     if(reg.TiempoPrep<0){
         system("cls");
@@ -165,7 +165,7 @@ bool cargarPlatos(){
         fclose(p);
         return false;
     }
-    cout << "ID DEL RESTAURANTE:";
+    cout << "ID DEL RESTAURANTE: ";
     cin >> reg.IDrestaurante;
     if (reg.IDrestaurante<0){
         system("cls");
@@ -173,7 +173,7 @@ bool cargarPlatos(){
         fclose(p);
         return false;
     }
-    cout << "COMISION DEL RESTAURANTE %: ";
+    cout << "COMISION DEL RESTAURANTE: %";
     cin >> reg.comision;
     if (reg.comision<0 || reg.comision>100){
         system("cls");

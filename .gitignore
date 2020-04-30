@@ -1,3 +1,4 @@
 \obj
 tp lara.depend
 \bin
+tp lara/tp lara.depend
