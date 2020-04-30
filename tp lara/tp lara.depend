@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1588289506 source:c:\users\yerbaa\documents\github\lara-tp-labo-2\tp lara\main.cpp
+	<iostream>
+	<cstdlib>
+	<cstdio>
+	"structs.h"
+	"funciones.h"
+
+1588289078 c:\users\yerbaa\documents\github\lara-tp-labo-2\tp lara\structs.h
+
+1588289369 c:\users\yerbaa\documents\github\lara-tp-labo-2\tp lara\funciones.h
+
