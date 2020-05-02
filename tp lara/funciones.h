@@ -443,8 +443,22 @@ bool modificarPlato(int*id){
         if(*id==reg.IDplato){
             cout << "          IMPORTE DE VENTA: $";
             cin >> reg.imp;
+            if (!validarImporte(&reg)){
+            fclose(p);
+            return false;
+        }
             cout << "    MINUTOS DE PREPARACION: ";
             cin >> reg.TiempoPrep;
+            if(reg.TiempoPrep<0){
+                system("cls");
+                cout << endl << endl;
+                system("color 4f");
+                cout << " ===================================================== "<< endl;
+                cout << "|  EL TIEMPO DE PREPARACION NO DEBE SER MENOR A CERO  |" << endl;
+                cout << " ===================================================== "<< endl;
+                fclose(p);
+                return false;
+            }
             fseek(p,(ftell(p)-sizeof reg),0);
             fwrite(&reg,sizeof reg,1,p);
             fclose(p);
