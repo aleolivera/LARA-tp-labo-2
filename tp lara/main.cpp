@@ -12,6 +12,7 @@ int main()
     int op;
     int id;
     while(!salir){
+        system("color 0a");
         system("cls");
         presentacionMenu();
         cin >> op;
@@ -25,49 +26,81 @@ int main()
                     case 1:
                         if(cargarPlatos()){
                             system("cls");
-                            cout << "EL PLATO SE HA CARGADO CON EXITO." << endl;
+                            cout << endl << endl;
+                            system("color 2f");
+                            cout << " ===================================================== "<< endl;
+                            cout << "|        EL PLATO SE HA CARGADO CON EXITO             |"<< endl;
+                            cout << " ===================================================== "<< endl;
                             cin.ignore();
                             cin.get();
                         }
                         else{
-                            cout << "EL PLATO NO SE HA PODIDO CARGAR." << endl;
+                            cout << endl << endl;
+                            system("color 4f");
+                            cout << " ===================================================== "<< endl;
+                            cout << "|        EL PLATO NO SE HA PODIDO CARGAR              |" << endl;
+                            cout << " ===================================================== "<< endl;
                             cin.ignore();
                             cin.get();
                         }
                         break;
                     case 2:
-                        cout << "INGRESE EL ID DEL PLATO: ";
+                        cout << " ===================================================== "<< endl;
+                        cout << "|        INGRESE EL ID DEL PLATO: ";
                         cin >> id;
+                        cout << endl;
+                        cout << " ===================================================== "<< endl;
                         if(modificarPlato(&id)){
                             system("cls");
-                            cout << "PLATO MODIFICADO EXITOSAMENTE." << endl;
+                            cout << endl << endl;
+                            system("color 2f");
+                            cout << " ===================================================== "<< endl;
+                            cout << "|        PLATO MODIFICADO EXITOSAMENTE                |"<< endl;
+                            cout << " ===================================================== "<< endl;
                             cin.ignore();
                             cin.get();
                         }
                         else{
-                            cout << "EL PLATO ID(" << id << ") NO SE PUDO MODIFICAR." << endl;
+                            cout << endl << endl;
+                            system("color 4f");
+                            cout << " ===================================================== "<< endl;
+                            cout << "|        EL PLATO NO SE HA PODIDO MODIFICAR           |" << endl;
+                            cout << " ===================================================== "<< endl;
                             cin.ignore();
                             cin.get();
                         }
                         break;
                     case 3:
-
-                        cout << "LISTAR PLATO" << endl;
-                        cout << "INGRESE EL ID DEL PLATO: " << endl<< endl;
+                        cout << " ===================================================== "<< endl;
+                        cout << "|                  LISTAR PLATO                       |"<< endl;
+                        cout << "         INGRESE EL ID DEL PLATO: ";
                         cin >> id;
-                        system("cls");
+                        cout << endl;
+                        cout << " ===================================================== "<< endl;
                         if(!listarPlatoID(&id)){
-                            cout << "EL PLATO (ID "<< id << ") NO SE ENCUENTRA EN EL ARCHIVO." << endl;
+                            cout << endl << endl;
+                            system("color 4f");
+                            cout << " ===================================================== "<< endl;
+                            cout << "|      EL PLATO NO SE ENCUENTRA EN EL ARCHIVO         |" << endl;
+                            cout << " ===================================================== "<< endl;
                         }
                         cin.ignore();
                         cin.get();
                         break;
                     case 4:
-                        cout << "INGRESE EL ID DEL RESTAURANTE: " << endl;
+                        cout << " ===================================================== "<< endl;
+                        cout << "|        INGRESE EL ID DEL RESTAURANTE: ";
                         cin >> id;
-                        system("cls");
+                        cout << endl;
+                        cout << " ===================================================== "<< endl;
                         if(!listarPlatoRes(&id)){
-                            cout << "NO SE ENCONTRO EL RESTAURANTE " << id<< "." << endl;
+                            cout << endl << endl;
+                            system("color 4f");
+                            cout << " ===================================================== "<< endl;
+                            cout << "|        NO SE ENCONTRO EL RESTAURANTE                |" << endl;
+                            cout << " ===================================================== "<< endl;
+                            cin.ignore();
+                            cin.get();
                         }
                         cin.ignore();
                         cin.get();
@@ -79,16 +112,27 @@ int main()
                         cin.get();
                         break;
                     case 6:
-                        cout << "INGRESE EL ID DEL PLATO: " << endl;
+                        cout << " ===================================================== "<< endl;
+                        cout << "|                ELIMINAR PLATO                       |"<< endl;
+                        cout << "         INGRESE EL ID DEL PLATO: ";
                         cin >> id;
-                        system("cls");
+                        cout << endl;
+                        cout << " ===================================================== "<< endl;
                         if(bajaPlato(&id)){
-                            cout << "EL PLATO ID: " << id << " SE HA ELIMINADO CORRECTAMENTE." << endl;
+                            cout << endl << endl;
+                            system("color 2f");
+                            cout << " ===================================================== "<< endl;
+                            cout << "|       EL PLATO SE HA ELIMADO EXITOSAMENTE           |"<< endl;
+                            cout << " ===================================================== "<< endl;
                             cin.ignore();
                             cin.get();
                         }
                         else{
-                            cout << "NO SE ENCONTRO NINGUN PLATO CON ID: " << id << endl;
+                            cout << endl << endl;
+                            system("color 4f");
+                            cout << " ===================================================== "<< endl;
+                            cout << "|     NO SE ENCONTRO NINGUN PLATO CON ESE ID          |" << endl;
+                            cout << " ===================================================== "<< endl;
                             cin.ignore();
                             cin.get();
                         }
