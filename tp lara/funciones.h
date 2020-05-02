@@ -389,7 +389,7 @@ bool cargarPlatos(){
     }
     cout << "        ID DEL RESTAURANTE: ";
     cin >> reg.IDrestaurante;
-    if (reg.IDrestaurante<0){
+    if (reg.IDrestaurante<1){
         system("cls");
         cout << endl << endl;
         system("color 4f");
@@ -413,7 +413,7 @@ bool cargarPlatos(){
     }
     cout << "        ID DE LA CATEGORIA: ";
     cin >> reg.categoria;
-    if (reg.categoria<0){
+    if (reg.categoria<1){
         system("cls");
         cout << endl << endl;
         system("color 4f");
