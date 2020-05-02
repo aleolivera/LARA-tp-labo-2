@@ -46,6 +46,7 @@ int main()
                         break;
                     case 2:
                         cout << " ===================================================== "<< endl;
+                        cout << "|               MODIFICAR PLATO                       |"<< endl;
                         cout << "|        INGRESE EL ID DEL PLATO: ";
                         cin >> id;
                         cout << endl;
@@ -57,8 +58,6 @@ int main()
                             cout << " ===================================================== "<< endl;
                             cout << "|        PLATO MODIFICADO EXITOSAMENTE                |"<< endl;
                             cout << " ===================================================== "<< endl;
-                            cin.ignore();
-                            cin.get();
                         }
                         else{
                             cout << endl << endl;
@@ -66,9 +65,9 @@ int main()
                             cout << " ===================================================== "<< endl;
                             cout << "|        EL PLATO NO SE HA PODIDO MODIFICAR           |" << endl;
                             cout << " ===================================================== "<< endl;
-                            cin.ignore();
-                            cin.get();
                         }
+                        cin.ignore();
+                        cin.get();
                         break;
                     case 3:
                         cout << " ===================================================== "<< endl;

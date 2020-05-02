@@ -7,11 +7,11 @@ cout << "|                       L A R A                       |"<< endl;
 cout << " ===================================================== "<< endl;
 cout << "|                M E N U     P L A T O S              |"<< endl;
 cout << "|-----------------------------------------------------|"<< endl;
-cout << "|                  1) PLATOS                          |"<< endl;
-cout << "|                  2) CLIENTES                        |"<< endl;
-cout << "|                  3) PEDIDOS                         |"<< endl;
-cout << "|                  4) REPORTES                        |"<< endl;
-cout << "|                  5) CONFIGURACION                   |"<< endl;
+cout << "|       1) PLATOS               //``--.._             |"<< endl;
+cout << "|       2) CLIENTES            ||  (_)  _ ``-._       |"<< endl;
+cout << "|       3) PEDIDOS             ||    _ (_)    ``-.    |"<< endl;
+cout << "|       4) REPORTES            ||   (_)   __..-``     |"<< endl;
+cout << "|       5) CONFIGURACION        \\__..--``            |"<< endl;
 cout << "|-----------------------------------------------------|"<< endl;
 cout << "|                  0) SALIR DEL PROGRAMA              |"<< endl;
 cout << " ===================================================== "<< endl;
@@ -441,9 +441,9 @@ bool modificarPlato(int*id){
     }
     while(fread(&reg,sizeof reg,1,p)==1){
         if(*id==reg.IDplato){
-            cout << "IMPORTE DE VENTA: ";
+            cout << "          IMPORTE DE VENTA: $";
             cin >> reg.imp;
-            cout << "TIEMPO DE PREPARACION: ";
+            cout << "    MINUTOS DE PREPARACION: ";
             cin >> reg.TiempoPrep;
             fseek(p,(ftell(p)-sizeof reg),0);
             fwrite(&reg,sizeof reg,1,p);
