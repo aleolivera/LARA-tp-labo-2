@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <cstdio>
+#include <string.h>
 using namespace std;
 #include "structs.h"
 #include "funciones.h"
