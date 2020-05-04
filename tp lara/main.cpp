@@ -5,6 +5,7 @@
 using namespace std;
 #include "structs.h"
 #include "funciones.h"
+#include "funcionesClientes.h"
 
 int main()
 {
@@ -31,8 +32,7 @@ int main()
                             cout << " ===================================================== "<< endl;
                             cout << "|        EL PLATO SE HA CARGADO CON EXITO             |"<< endl;
                             cout << " ===================================================== "<< endl;
-                            cin.ignore();
-                            cin.get();
+
                         }
                         else{
                             cout << endl << endl;
@@ -40,9 +40,9 @@ int main()
                             cout << " ===================================================== "<< endl;
                             cout << "|        EL PLATO NO SE HA PODIDO CARGAR              |" << endl;
                             cout << " ===================================================== "<< endl;
-                            cin.ignore();
-                            cin.get();
                         }
+                        cin.ignore();
+                        cin.get();
                         break;
                     case 2:
                         cout << " ===================================================== "<< endl;
@@ -123,8 +123,7 @@ int main()
                             cout << " ===================================================== "<< endl;
                             cout << "|       EL PLATO SE HA ELIMADO EXITOSAMENTE           |"<< endl;
                             cout << " ===================================================== "<< endl;
-                            cin.ignore();
-                            cin.get();
+
                         }
                         else{
                             cout << endl << endl;
@@ -132,17 +131,63 @@ int main()
                             cout << " ===================================================== "<< endl;
                             cout << "|     NO SE ENCONTRO NINGUN PLATO CON ESE ID          |" << endl;
                             cout << " ===================================================== "<< endl;
-                            cin.ignore();
-                            cin.get();
                         }
+                        cin.ignore();
+                        cin.get();
                         break;
                     case 0:
                         break;
                 }
                 break;
             case 2:
-                cout << "UNDER CONSTRUCTION." << endl;
-                cin.ignore();
+                presentacionSubmenuCL();
+                cin >> op;
+                system("cls");
+                switch (op){
+                    case 1:
+                        if(cargarCliente()){
+                            system("cls");
+                            cout << endl << endl;
+                            system("color 2f");
+                            cout << " ===================================================== "<< endl;
+                            cout << "|      EL CLIENTE SE HA CARGADO CON EXITO             |"<< endl;
+                            cout << " ===================================================== "<< endl;
+                            cin.ignore();
+
+                        }
+                        else{
+                            cout << endl << endl;
+                            system("color 4f");
+                            cout << " ===================================================== "<< endl;
+                            cout << "|      EL CLIENTE NO SE HA PODIDO CARGAR              |" << endl;
+                            cout << " ===================================================== "<< endl;
+                            cin.ignore();
+                        }
+                        break;
+                    case 2:
+                        cin.ignore();
+                        cin.get();
+                        break;
+                    case 3:
+                        cin.ignore();
+                        cin.get();
+                        break;
+                    case 4:
+                        listarTodosClientes();
+                        cin.ignore();
+                        cin.get();
+                        break;
+                    case 5:
+                        cin.ignore();
+                        cin.get();
+                        break;
+                    case 6:
+                        cin.ignore();
+                        cin.get();
+                        break;
+                    case 0:
+                        break;
+                }
                 cin.get();
                 break;
             case 3:
@@ -169,7 +214,5 @@ int main()
         }
 
     }
-
-
     return 0;
 }
