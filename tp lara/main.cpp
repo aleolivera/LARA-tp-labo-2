@@ -165,25 +165,35 @@ int main()
                         }
                         break;
                     case 2:
+//                        cin >> id;
+//                        if(modificarCliente(&id)){
+//                            cout << "hecho";
+//                        }
+//                        else{
+//                            cout << "no hecho";
+//                        }
                         cin.ignore();
                         cin.get();
                         break;
                     case 3:
-                        cin.ignore();
-                        cin.get();
-                        break;
+//                        listarClientes();
+//                        cin.ignore();
+//                        cin.get();
+//                        break;
                     case 4:
                         listarTodosClientes();
                         cin.ignore();
                         cin.get();
                         break;
                     case 5:
-                        cin.ignore();
-                        cin.get();
-                        break;
-                    case 6:
-                        cin.ignore();
-                        cin.get();
+//                        if(eliminarCliente(*id)){
+//                            cout << "hecho";
+//                        }
+//                        else{
+//                            cout << "no hecho";
+//                        }
+//                        cin.ignore();
+//                        cin.get();
                         break;
                     case 0:
                         break;

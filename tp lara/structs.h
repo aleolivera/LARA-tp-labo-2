@@ -4,11 +4,6 @@
 const char ARCHIVOPLATOS[11]="platos.dat";
 const char ARCHIVOCLIENTES[13]="clientes.dat";
 const char ARCHIVOPEDIDOS[12]="pedidos.dat";
-const char REGISTROSPROGRAMA[22]="registrosprograma.dat";
-
-struct regPrograma{
-    int conCL;
-};
 
 struct plato{
     int IDplato;

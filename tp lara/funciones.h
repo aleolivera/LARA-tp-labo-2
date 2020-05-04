@@ -1,41 +1,7 @@
 #ifndef FUNCIONES_H_INCLUDED
 #define FUNCIONES_H_INCLUDED
 
-void presentacionMenu (){
-cout << " ===================================================== "<< endl;
-cout << "|                       L A R A                       |"<< endl;
-cout << " ===================================================== "<< endl;
-cout << "|                M E N U     P L A T O S              |"<< endl;
-cout << "|-----------------------------------------------------|"<< endl;
-cout << "|       1) PLATOS               //``--.._             |"<< endl;
-cout << "|       2) CLIENTES            ||  (_)  _ ``-._       |"<< endl;
-cout << "|       3) PEDIDOS             ||    _ (_)    ``-.    |"<< endl;
-cout << "|       4) REPORTES            ||   (_)   __..-``     |"<< endl;
-cout << "|       5) CONFIGURACION        \\__..--``            |"<< endl;
-cout << "|-----------------------------------------------------|"<< endl;
-cout << "|                  0) SALIR DEL PROGRAMA              |"<< endl;
-cout << " ===================================================== "<< endl;
-cout << "|                       L A R A                       |"<< endl;
-cout << " ===================================================== "<< endl;
-}
-void presentacionSubmenu (){
-cout << " ===================================================== "<< endl;
-cout << "|                       L A R A                       |"<< endl;
-cout << " ===================================================== "<< endl;
-cout << "|                M E N U     P L A T O S              |"<< endl;
-cout << "|-----------------------------------------------------|"<< endl;
-cout << "|             1) NUEVO PLATO                          |"<< endl;
-cout << "|             2) MODIFICAR PLATO                      |"<< endl;
-cout << "|             3) LISTAR PLATO POR ID                  |"<< endl;
-cout << "|             4) PLATOS POR RESTAURANT                |"<< endl;
-cout << "|             5) LISTAR TODOS LOS PLATOS              |"<< endl;
-cout << "|             6) ELIMINAR PLATO                       |"<< endl;
-cout << "|-----------------------------------------------------|"<< endl;
-cout << "|             0) VOLVER AL MENU PRINCIPAL             |"<< endl;
-cout << " ===================================================== "<< endl;
-cout << "|                       L A R A                       |"<< endl;
-cout << " ===================================================== "<< endl;
-}
+//funciones varias
 int contarCifrasInt(int n){
     int t, div=1, cifras=0;
     bool b=true;
@@ -123,31 +89,63 @@ void acomodarFloat(float n,int longitud){
     }
     cout <<"$" << n;
 }
-void registroHorizontal(struct plato*reg){
-    cout << "|";
-    acomodarInt(reg->IDplato,7,0);
-    cout << "|";
-    acomodarChar(reg,30);
-    cout << "|";
-    acomodarFloat(reg->costo,6);
-    cout << "|";
-    acomodarFloat(reg->imp,8);
-    cout << "|";
-    acomodarInt(reg->TiempoPrep,11,2);
-    cout << "|";
-    acomodarInt(reg->IDrestaurante,12,0);
-    cout << "|";
-    acomodarInt(reg->comision,9,1);
-    cout << "|";
-    acomodarInt(reg->categoria,11,0);
-    cout << "|";
-    if(reg->estado){
-        cout <<"  DISPONIBLE ";
+int buscarRegID(int*id){
+    struct plato reg;
+    FILE*p=fopen(ARCHIVOPLATOS,"rb");
+    if(p==NULL){
+        cout << endl << endl;
+        system("color 4f");
+        cout << " ===================================================== "<< endl;
+        cout << "|        EL ARCHIVO NO SE PUDO ABRIR                  |" << endl;
+        cout << " ===================================================== "<< endl;
+        return 0;
     }
-    else{
-        cout <<"NO DISPONIBLE";
+    while(fread(&reg,sizeof reg,1,p)==1){
+        if (*id==reg.IDplato){
+            fclose(p);
+            return (ftell(p)/sizeof reg);
+        }
     }
-    cout << "|"<< endl;
+    fclose(p);
+    return -1;
+}
+
+
+//funciones de impresion de pantalla
+void presentacionMenu (){
+cout << " ===================================================== "<< endl;
+cout << "|                       L A R A                       |"<< endl;
+cout << " ===================================================== "<< endl;
+cout << "|                M E N U     P L A T O S              |"<< endl;
+cout << "|-----------------------------------------------------|"<< endl;
+cout << "|       1) PLATOS               //``--.._             |"<< endl;
+cout << "|       2) CLIENTES            ||  (_)  _ ``-._       |"<< endl;
+cout << "|       3) PEDIDOS             ||    _ (_)    ``-.    |"<< endl;
+cout << "|       4) REPORTES            ||   (_)   __..-``     |"<< endl;
+cout << "|       5) CONFIGURACION        \\__..--``             |"<< endl;
+cout << "|-----------------------------------------------------|"<< endl;
+cout << "|                  0) SALIR DEL PROGRAMA              |"<< endl;
+cout << " ===================================================== "<< endl;
+cout << "|                       L A R A                       |"<< endl;
+cout << " ===================================================== "<< endl;
+}
+void presentacionSubmenu (){
+cout << " ===================================================== "<< endl;
+cout << "|                       L A R A                       |"<< endl;
+cout << " ===================================================== "<< endl;
+cout << "|                M E N U     P L A T O S              |"<< endl;
+cout << "|-----------------------------------------------------|"<< endl;
+cout << "|             1) NUEVO PLATO                          |"<< endl;
+cout << "|             2) MODIFICAR PLATO                      |"<< endl;
+cout << "|             3) LISTAR PLATO POR ID                  |"<< endl;
+cout << "|             4) PLATOS POR RESTAURANT                |"<< endl;
+cout << "|             5) LISTAR TODOS LOS PLATOS              |"<< endl;
+cout << "|             6) ELIMINAR PLATO                       |"<< endl;
+cout << "|-----------------------------------------------------|"<< endl;
+cout << "|             0) VOLVER AL MENU PRINCIPAL             |"<< endl;
+cout << " ===================================================== "<< endl;
+cout << "|                       L A R A                       |"<< endl;
+cout << " ===================================================== "<< endl;
 }
 void mostrarReg(struct plato*reg){
     int espacios;
@@ -218,7 +216,7 @@ void mostrarReg(struct plato*reg){
     }
     cout << " ===================================================== "<< endl;
 }
-int buscarRegID(int*id){
+bool listarPlatoID(int*id){
     struct plato reg;
     FILE*p=fopen(ARCHIVOPLATOS,"rb");
     if(p==NULL){
@@ -227,16 +225,113 @@ int buscarRegID(int*id){
         cout << " ===================================================== "<< endl;
         cout << "|        EL ARCHIVO NO SE PUDO ABRIR                  |" << endl;
         cout << " ===================================================== "<< endl;
-        return 0;
+        return false;
     }
     while(fread(&reg,sizeof reg,1,p)==1){
-        if (*id==reg.IDplato){
+        if(*id==reg.IDplato){
+            mostrarReg(&reg);
             fclose(p);
-            return (ftell(p)/sizeof reg);
+            return true;
+        }
+    }
+    return false;
+}
+bool listarPlatoRes(int*restaurante){
+    struct plato reg;
+    FILE*p=fopen(ARCHIVOPLATOS,"rb");
+    if(p==NULL){
+        cout << endl << endl;
+        system("color 4f");
+        cout << " ===================================================== "<< endl;
+        cout << "|        EL ARCHIVO NO SE PUDO ABRIR                  |" << endl;
+        cout << " ===================================================== "<< endl;
+        return false;
+    }
+    while(fread(&reg,sizeof reg,1,p)==1){
+        if(*restaurante==reg.IDrestaurante){
+            mostrarReg(&reg);
+            cout << endl;
         }
     }
     fclose(p);
-    return -1;
+    return true;
+}
+void registroHorizontal(struct plato*reg){
+    cout << "|";
+    acomodarInt(reg->IDplato,7,0);
+    cout << "|";
+    acomodarChar(reg,30);
+    cout << "|";
+    acomodarFloat(reg->costo,6);
+    cout << "|";
+    acomodarFloat(reg->imp,8);
+    cout << "|";
+    acomodarInt(reg->TiempoPrep,11,2);
+    cout << "|";
+    acomodarInt(reg->IDrestaurante,12,0);
+    cout << "|";
+    acomodarInt(reg->comision,9,1);
+    cout << "|";
+    acomodarInt(reg->categoria,11,0);
+    cout << "|";
+    if(reg->estado){
+        cout <<"  DISPONIBLE ";
+    }
+    else{
+        cout <<"NO DISPONIBLE";
+    }
+    cout << "|"<< endl;
+}
+void listarTodosPlatos(){
+    struct plato reg;
+    bool saltoLinea=false;
+    FILE*p=fopen(ARCHIVOPLATOS,"rb");
+    if(p==NULL){
+        cout << endl << endl;
+        system("color 4f");
+        cout << " ===================================================== "<< endl;
+        cout << "|        EL ARCHIVO NO SE PUDO ABRIR                  |" << endl;
+        cout << " ===================================================== "<< endl;
+        return;
+    }
+
+    cout << "                                         LISTA    DE    PLATOS                                                          " << endl;
+    cout << " ______________________________________________________________________________________________________________________ " << endl;
+    cout << "| PLATO |              NOMBRE          | COSTO | IMP VTA |PREPARACION| RESTAURANT | COMISION | CATEGORIA |    ESTADO   |" << endl;
+    cout << "|¯¯¯¯¯¯¯|¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯|¯¯¯¯¯¯¯|¯¯¯¯¯¯¯¯¯|¯¯¯¯¯¯¯¯¯¯¯|¯¯¯¯¯¯¯¯¯¯¯¯|¯¯¯¯¯¯¯¯¯¯|¯¯¯¯¯¯¯¯¯¯¯|¯¯¯¯¯¯¯¯¯¯¯¯¯|" << endl;
+
+    while(fread(&reg,sizeof reg,1,p)==1){
+        if(saltoLinea){
+        cout << "|       |                              |       |         |           |            |          |           |             |" << endl;
+        }
+        registroHorizontal(&reg);
+        saltoLinea=true;
+    }
+
+    cout << "|_______|______________________________|_______|_________|___________|____________|__________|___________|_____________|";
+}
+
+//funciones de validacion
+bool validarImporte(struct plato*reg){
+    if(reg->imp < reg->costo){
+        system("cls");
+        cout << endl << endl;
+        system("color 4f");
+        cout << " ===================================================== "<< endl;
+        cout << "| EL IMPORTE DE VENTA NO PUEDE SER MENOR AL COSTO     |" << endl;
+        cout << " ===================================================== "<< endl;
+        return false;
+    }
+    else if(reg->imp < 0){
+        system("cls");
+        cout << endl << endl;
+        system("color 4f");
+        cout << " ===================================================== "<< endl;
+        cout << "|      EL IMPORTE DE VENTA NO PUEDE SER CERO          |" << endl;
+        cout << " ===================================================== "<< endl;
+        return false;
+    }
+    return true;
 }
 int validarID(int id){
     if (id==0){
@@ -278,6 +373,110 @@ int validarID(int id){
     }
     return 1;
 }
+
+
+//funciones de carga
+bool cargarIDplato(struct plato*reg){
+    cout << "                        ID: ";
+    cin >> reg->IDplato;
+    if (validarID(reg->IDplato)==-1){
+        return false;
+    }
+    return true;
+}
+bool cargarNombrePlato(char*nombre,int cant){
+    cout << "          NOMBRE DEL PLATO: ";
+    cin.ignore();
+    cin.getline(nombre,cant);
+    if (nombre[0]=='\0'){
+        system("cls");
+        cout << endl << endl;
+        system("color 4f");
+        cout << " ===================================================== "<< endl;
+        cout << "|        TODOS LOS PLATOS DEBEN TENER UN NOMBRE       |" << endl;
+        cout << " ===================================================== "<< endl;
+        return false;
+    }
+    return true;
+}
+bool cargarCostoPlato(float*costo){
+    cout << "      COSTO DE PREPARACION: $";
+    cin >> *costo;
+    if (*costo<0){
+        system("cls");
+        cout << endl << endl;
+        system("color 4f");
+        cout << " ===================================================== "<< endl;
+        cout << "|    EL COSTO DE PREPARACION DEBE SER MAYOR A CERO    |" << endl;
+        cout << " ===================================================== "<< endl;
+        return false;
+    }
+    return true;
+}
+bool cargarImporteVenta(struct plato*reg){
+    cout << "          IMPORTE DE VENTA: $";
+    cin >> reg->imp;
+    if (!validarImporte(reg)){
+        return false;
+    }
+    return true;
+}
+bool cargarMinPrep(int*minutos){
+    cout << "    MINUTOS DE PREPARACION: ";
+    cin >> *minutos;
+    if(*minutos<0){
+        system("cls");
+        cout << endl << endl;
+        system("color 4f");
+        cout << " ===================================================== "<< endl;
+        cout << "|  EL TIEMPO DE PREPARACION NO DEBE SER MENOR A CERO  |" << endl;
+        cout << " ===================================================== "<< endl;
+        return false;
+    }
+    return true;
+}
+bool cargarIDRestaurant(int*id){
+    cout << "        ID DEL RESTAURANTE: ";
+    cin >> *id;
+    if (*id<1){
+        system("cls");
+        cout << endl << endl;
+        system("color 4f");
+        cout << " ===================================================== "<< endl;
+        cout << "|     EL ID DEL RESTAURANTE DEBE SER MAYOR A CERO     |" << endl;
+        cout << " ===================================================== "<< endl;
+        return false;
+    }
+    return true;
+}
+bool cargarComision(int*comision){
+    cout << "  COMISION DEL RESTAURANTE: %";
+    cin >> *comision;
+    if (*comision<0 || *comision>100){
+        system("cls");
+        cout << endl << endl;
+        system("color 4f");
+        cout << " ===================================================== "<< endl;
+        cout << "| EL VALOR DE LA COMISION DEBE SER ENTRE 0% y 100%    |" << endl;
+        cout << " ===================================================== "<< endl;
+        return false;
+    }
+    return true;
+}
+bool cargarIDCategoria(int*id){
+    cout << "        ID DE LA CATEGORIA: ";
+    cin >> *id;
+    if (*id<1){
+        system("cls");
+        cout << endl << endl;
+        system("color 4f");
+        cout << " ===================================================== "<< endl;
+        cout << "|      EL ID DE LA TEGORIA DEBE SER MAYOR A CERO      |" << endl;
+        cout << " ===================================================== "<< endl;
+        return false;
+    }
+    return true;
+}
 bool bajaPlato(int*id){
     struct plato reg;
     FILE*p=fopen(ARCHIVOPLATOS,"rb+");
@@ -301,27 +500,6 @@ bool bajaPlato(int*id){
     fclose(p);
     return false;
 }
-bool validarImporte(struct plato*reg){
-    if(reg->imp < reg->costo){
-        system("cls");
-        cout << endl << endl;
-        system("color 4f");
-        cout << " ===================================================== "<< endl;
-        cout << "| EL IMPORTE DE VENTA NO PUEDE SER MENOR AL COSTO     |" << endl;
-        cout << " ===================================================== "<< endl;
-        return false;
-    }
-    else if(reg->imp < 0){
-        system("cls");
-        cout << endl << endl;
-        system("color 4f");
-        cout << " ===================================================== "<< endl;
-        cout << "|      EL IMPORTE DE VENTA NO PUEDE SER CERO          |" << endl;
-        cout << " ===================================================== "<< endl;
-        return false;
-    }
-    return true;
-}
 bool cargarPlatos(){
     struct plato reg;
     FILE*p=fopen(ARCHIVOPLATOS,"ab");
@@ -338,91 +516,39 @@ bool cargarPlatos(){
     cout << "|            INGRESO DE NUEVO PLATO                   |"<< endl;
     cout << " ===================================================== "<< endl;
 
-    cout << "                        ID: ";
-    cin >> reg.IDplato;
-    if (validarID(reg.IDplato)==-1){
+    if(!cargarIDplato(&reg)){
         fclose(p);
         return false;
     }
-    cout << "          NOMBRE DEL PLATO: ";
-    cin.ignore();
-    cin.getline(reg.nombre,49);
-    if (reg.nombre[0]=='\0'){
-        system("cls");
-        cout << endl << endl;
-        system("color 4f");
-        cout << " ===================================================== "<< endl;
-        cout << "|        TODOS LOS PLATOS DEBEN TENER UN NOMBRE       |" << endl;
-        cout << " ===================================================== "<< endl;
+    if(!cargarNombrePlato(reg.nombre,49)){
         fclose(p);
         return false;
     }
-    cout << "      COSTO DE PREPARACION: $";
-    cin >> reg.costo;
-    if (reg.costo<0){
-        system("cls");
-        cout << endl << endl;
-        system("color 4f");
-        cout << " ===================================================== "<< endl;
-        cout << "|    EL COSTO DE PREPARACION DEBE SER MAYOR A CERO    |" << endl;
-        cout << " ===================================================== "<< endl;
+    if(!cargarCostoPlato(&reg.costo)){
         fclose(p);
         return false;
     }
-    cout << "          IMPORTE DE VENTA: $";
-    cin >> reg.imp;
-    if (!validarImporte(&reg)){
+    if(!cargarImporteVenta(&reg)){
         fclose(p);
         return false;
     }
-    cout << "    MINUTOS DE PREPARACION: ";
-    cin >> reg.TiempoPrep;
-    if(reg.TiempoPrep<0){
-        system("cls");
-        cout << endl << endl;
-        system("color 4f");
-        cout << " ===================================================== "<< endl;
-        cout << "|  EL TIEMPO DE PREPARACION NO DEBE SER MENOR A CERO  |" << endl;
-        cout << " ===================================================== "<< endl;
+    if(!cargarMinPrep(&reg.TiempoPrep)){
         fclose(p);
         return false;
     }
-    cout << "        ID DEL RESTAURANTE: ";
-    cin >> reg.IDrestaurante;
-    if (reg.IDrestaurante<1){
-        system("cls");
-        cout << endl << endl;
-        system("color 4f");
-        cout << " ===================================================== "<< endl;
-        cout << "|     EL ID DEL RESTAURANTE DEBE SER MAYOR A CERO     |" << endl;
-        cout << " ===================================================== "<< endl;
+    if(!cargarIDRestaurant(&reg.IDrestaurante)){
         fclose(p);
         return false;
     }
-    cout << "  COMISION DEL RESTAURANTE: %";
-    cin >> reg.comision;
-    if (reg.comision<0 || reg.comision>100){
-        system("cls");
-        cout << endl << endl;
-        system("color 4f");
-        cout << " ===================================================== "<< endl;
-        cout << "| EL VALOR DE LA COMISION DEBE SER ENTRE 0% y 100%    |" << endl;
-        cout << " ===================================================== "<< endl;
+    if(!cargarComision(&reg.comision)){
         fclose(p);
         return false;
     }
-    cout << "        ID DE LA CATEGORIA: ";
-    cin >> reg.categoria;
-    if (reg.categoria<1){
-        system("cls");
-        cout << endl << endl;
-        system("color 4f");
-        cout << " ===================================================== "<< endl;
-        cout << "|      EL ID DE LA TEGORIA DEBE SER MAYOR A CERO      |" << endl;
-        cout << " ===================================================== "<< endl;
+    if(!cargarIDCategoria(&reg.categoria)){
         fclose(p);
         return false;
     }
+
     reg.estado=true;
     fwrite(&reg,sizeof reg,1,p);
     fclose(p);
@@ -468,73 +594,6 @@ bool modificarPlato(int*id){
     fclose(p);
     return false;
 }
-bool listarPlatoID(int*id){
-    struct plato reg;
-    FILE*p=fopen(ARCHIVOPLATOS,"rb");
-    if(p==NULL){
-        cout << endl << endl;
-        system("color 4f");
-        cout << " ===================================================== "<< endl;
-        cout << "|        EL ARCHIVO NO SE PUDO ABRIR                  |" << endl;
-        cout << " ===================================================== "<< endl;
-        return false;
-    }
-    while(fread(&reg,sizeof reg,1,p)==1){
-        if(*id==reg.IDplato){
-            mostrarReg(&reg);
-            fclose(p);
-            return true;
-        }
-    }
-    return false;
-}
-bool listarPlatoRes(int*restaurante){
-    struct plato reg;
-    FILE*p=fopen(ARCHIVOPLATOS,"rb");
-    if(p==NULL){
-        cout << endl << endl;
-        system("color 4f");
-        cout << " ===================================================== "<< endl;
-        cout << "|        EL ARCHIVO NO SE PUDO ABRIR                  |" << endl;
-        cout << " ===================================================== "<< endl;
-        return false;
-    }
-    while(fread(&reg,sizeof reg,1,p)==1){
-        if(*restaurante==reg.IDrestaurante){
-            mostrarReg(&reg);
-            cout << endl;
-        }
-    }
-    fclose(p);
-    return true;
-}
-void listarTodosPlatos(){
-    struct plato reg;
-    bool saltoLinea=false;
-    FILE*p=fopen(ARCHIVOPLATOS,"rb");
-    if(p==NULL){
-        cout << endl << endl;
-        system("color 4f");
-        cout << " ===================================================== "<< endl;
-        cout << "|        EL ARCHIVO NO SE PUDO ABRIR                  |" << endl;
-        cout << " ===================================================== "<< endl;
-        return;
-    }
 
-    cout << "                                         LISTA    DE    PLATOS                                                          " << endl;
-    cout << " ______________________________________________________________________________________________________________________ " << endl;
-    cout << "| PLATO |              NOMBRE          | COSTO | IMP VTA |PREPARACION| RESTAURANT | COMISION | CATEGORIA |    ESTADO   |" << endl;
-    cout << "|¯¯¯¯¯¯¯|¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯|¯¯¯¯¯¯¯|¯¯¯¯¯¯¯¯¯|¯¯¯¯¯¯¯¯¯¯¯|¯¯¯¯¯¯¯¯¯¯¯¯|¯¯¯¯¯¯¯¯¯¯|¯¯¯¯¯¯¯¯¯¯¯|¯¯¯¯¯¯¯¯¯¯¯¯¯|" << endl;
-
-    while(fread(&reg,sizeof reg,1,p)==1){
-        if(saltoLinea){
-        cout << "|       |                              |       |         |           |            |          |           |             |" << endl;
-        }
-        registroHorizontal(&reg);
-        saltoLinea=true;
-    }
-
-    cout << "|_______|______________________________|_______|_________|___________|____________|__________|___________|_____________|";
-}
 
 #endif // FUNCIONES_H_INCLUDED
