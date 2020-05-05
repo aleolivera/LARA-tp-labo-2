@@ -147,18 +147,18 @@ cout << " ===================================================== "<< endl;
 cout << "|                       L A R A                       |"<< endl;
 cout << " ===================================================== "<< endl;
 }
-void mostrarReg(struct plato*reg){
+void mostrarReg(struct plato*reg, int TAM){
     int espacios;
     cout << " ===================================================== "<< endl;
     cout << "|                   ID: " << reg->IDplato;
-    espacios=30-contarCifrasInt(reg->IDplato);
+    espacios=TAM-contarCifrasInt(reg->IDplato);
     while(espacios>0){
         cout << " ";
         espacios--;
         }
     cout << "|" << endl;
     cout << "|               NOMBRE: " << reg->nombre;
-    espacios=30-strlen(reg->nombre);
+    espacios=TAM-strlen(reg->nombre);
     while(espacios>0){
         cout << " ";
         espacios--;
@@ -166,42 +166,42 @@ void mostrarReg(struct plato*reg){
 
     cout << "|" << endl;
     cout << "| COSTO DE PREPARACION: " << reg->costo;
-    espacios=30-contarCifrasFloat(reg->costo);
+    espacios=TAM-contarCifrasFloat(reg->costo);
     while(espacios>0){
         cout << " ";
         espacios--;
         }
     cout << "|" << endl;
     cout << "|     IMPORTE DE VENTA: " << reg->imp;
-    espacios=30-contarCifrasFloat(reg->imp);
+    espacios=TAM-contarCifrasFloat(reg->imp);
     while(espacios>0){
         cout << " ";
         espacios--;
         }
     cout << "|" << endl;
     cout << "|TIEMPO DE PREPARACION: " << reg->TiempoPrep;
-    espacios=30-contarCifrasInt(reg->TiempoPrep);
+    espacios=TAM-contarCifrasInt(reg->TiempoPrep);
     while(espacios>0){
         cout << " ";
         espacios--;
         }
     cout << "|" << endl;
     cout << "|       ID RESTAURANTE: " << reg->IDrestaurante;
-    espacios=30-contarCifrasInt(reg->IDrestaurante);
+    espacios=TAM-contarCifrasInt(reg->IDrestaurante);
     while(espacios>0){
         cout << " ";
         espacios--;
         }
     cout << "|" << endl;
     cout << "| COMISION RESTAURANTE: " << reg->comision << "%";
-    espacios=30-contarCifrasInt(reg->comision)-1;
+    espacios=TAM-contarCifrasInt(reg->comision)-1;
     while(espacios>0){
         cout << " ";
         espacios--;
         }
     cout << "|" << endl;
     cout << "|         ID CATEGORIA: " << reg->categoria;
-    espacios=30-contarCifrasInt(reg->categoria);
+    espacios=TAM-contarCifrasInt(reg->categoria);
     while(espacios>0){
     cout << " ";
         espacios--;
@@ -229,7 +229,7 @@ bool listarPlatoID(int*id){
     }
     while(fread(&reg,sizeof reg,1,p)==1){
         if(*id==reg.IDplato){
-            mostrarReg(&reg);
+            mostrarReg(&reg,TAMCELDAPLATO);
             fclose(p);
             return true;
         }
@@ -249,7 +249,7 @@ bool listarPlatoRes(int*restaurante){
     }
     while(fread(&reg,sizeof reg,1,p)==1){
         if(*restaurante==reg.IDrestaurante){
-            mostrarReg(&reg);
+            mostrarReg(&reg,TAMCELDAPLATO);
             cout << endl;
         }
     }

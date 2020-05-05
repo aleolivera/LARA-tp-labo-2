@@ -156,44 +156,82 @@ int main()
 
                         }
                         else{
-                            cout << endl << endl;
                             system("color 4f");
-                            cout << " ===================================================== "<< endl;
-                            cout << "|      EL CLIENTE NO SE HA PODIDO CARGAR              |" << endl;
+                            cout << " ----------------------------------------------------- "<< endl;
+                            cout << "|                                                     |" << endl;
+                            cout << "|         EL CLIENTE NO SE HA PODIDO CARGAR           |"<< endl;
+                            cout << "|                                                     |" << endl;
                             cout << " ===================================================== "<< endl;
                             cin.ignore();
                         }
                         break;
                     case 2:
-//                        cin >> id;
-//                        if(modificarCliente(&id)){
-//                            cout << "hecho";
-//                        }
-//                        else{
-//                            cout << "no hecho";
-//                        }
+                        cout << " ===================================================== "<< endl;
+                        cout << "|              MODIFICAR CLIENTE                       |"<< endl;
+                        cout << "|      INGRESE EL ID DEL CLIENTE: ";
+                        cin >> id;
+                        cout << endl;
+                        cout << " ===================================================== "<< endl;
+                        if(modificarCliente(&id)){
+                            system("cls");
+                            cout << endl << endl;
+                            system("color 2f");
+                            cout << " ===================================================== "<< endl;
+                            cout << "|        CLIENTE MODIFICADO EXITOSAMENTE               |"<< endl;
+                            cout << " ===================================================== "<< endl;
+                        }
+                        else{
+                            system("color 4f");
+                            cout << " ----------------------------------------------------- "<< endl;
+                            cout << "|                                                      |" << endl;
+                            cout << "|       EL CLIENTE NO SE HA PODIDO MODIFICAR           |" << endl;
+                            cout << "|                                                      |" << endl;
+                            cout << " ===================================================== "<< endl;
+                        }
+                        cin.ignore();
+                        break;
+                    case 3:
+                        cout << " ===================================================== "<< endl;
+                        cout << "|                  LISTAR CLIENTE                      |"<< endl;
+                        cout << "        INGRESE EL ID DEL CLIENTE: ";
+                        cin >> id;
+                        cout << endl;
+                        cout << " ===================================================== "<< endl;
+                        if(!listarClienteID(&id)){
+                            system("color 4f");
+                            cout << " ----------------------------------------------------- "<< endl;
+                            cout << "|     EL CLIENTE NO SE ENCUENTRA EN EL ARCHIVO         |" << endl;
+                            cout << " ===================================================== "<< endl;
+                        }
                         cin.ignore();
                         cin.get();
                         break;
-                    case 3:
-//                        listarClientes();
-//                        cin.ignore();
-//                        cin.get();
-//                        break;
                     case 4:
                         listarTodosClientes();
                         cin.ignore();
                         cin.get();
                         break;
                     case 5:
-//                        if(eliminarCliente(*id)){
-//                            cout << "hecho";
-//                        }
-//                        else{
-//                            cout << "no hecho";
-//                        }
-//                        cin.ignore();
-//                        cin.get();
+                        cout << " ===================================================== "<< endl;
+                        cout << "|              ELIMINAR CLIENTE                       |"<< endl;
+                        cout << "       INGRESE EL ID DEL CLIENTE: ";
+                        cin >> id;
+                        cout << endl;
+                        cout << " ===================================================== "<< endl;
+                        if(bajaCliente(&id)){
+                            cout << endl << endl;
+                            system("color 2f");
+                            cout << " ===================================================== "<< endl;
+                            cout << "|     EL CLIENTE SE HA ELIMADO EXITOSAMENTE           |"<< endl;
+                            cout << " ===================================================== "<< endl;
+                        }
+                        else{
+                            system("color 4f");
+                            cout << " ----------------------------------------------------- "<< endl;;
+                            cout << "|    NO SE ENCONTRO NINGUN CLIENTE CON ESE ID         |" << endl;
+                            cout << " ===================================================== "<< endl;
+                        }
+                        cin.ignore();
                         break;
                     case 0:
                         break;
