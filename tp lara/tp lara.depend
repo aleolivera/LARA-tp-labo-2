@@ -1,12 +1,20 @@
 # depslib dependency file v1.0
-1588289506 source:c:\users\yerbaa\documents\github\lara-tp-labo-2\tp lara\main.cpp
+1588810264 source:c:\users\yerbaa\documents\github\lara-tp-labo-2\tp lara\main.cpp
 	<iostream>
 	<cstdlib>
 	<cstdio>
+	<string.h>
+	<ctime>
 	"structs.h"
 	"funciones.h"
+	"funcionesClientes.h"
+	"funcionesPedidos.h"
 
-1588289078 c:\users\yerbaa\documents\github\lara-tp-labo-2\tp lara\structs.h
+1588812344 c:\users\yerbaa\documents\github\lara-tp-labo-2\tp lara\structs.h
 
-1588289369 c:\users\yerbaa\documents\github\lara-tp-labo-2\tp lara\funciones.h
+1588805902 c:\users\yerbaa\documents\github\lara-tp-labo-2\tp lara\funciones.h
+
+1588812344 c:\users\yerbaa\documents\github\lara-tp-labo-2\tp lara\funcionesclientes.h
+
+1588818963 c:\users\yerbaa\documents\github\lara-tp-labo-2\tp lara\funcionespedidos.h
 

@@ -109,12 +109,31 @@ int buscarRegID(int*id){
     fclose(p);
     return -1;
 }
-
+struct fecha fechaActual(){
+    time_t t;
+    t=time(NULL);
+    struct tm*f;
+    struct fecha aux;
+    f=localtime(&t);
+    aux.dia=f->tm_mday;
+    aux.mes=f->tm_mon+1;
+    aux.anio=f->tm_year+1900;
+    return aux;
+}
 
 //funciones de impresion de pantalla
+void mostrarFechaActual(struct fecha*actual){
+    cout << actual->dia <<"/" << actual->mes <<"/" << actual->anio << endl;
+}
 void presentacionMenu (){
+struct fecha aux;
+aux=fechaActual();
 cout << " ===================================================== "<< endl;
-cout << "|                       L A R A                       |"<< endl;
+cout << "|                       L A R A          ";
+if(aux.dia/10<1) cout << "0"<< aux.dia << "/";
+else cout << aux.dia << "/";
+if(aux.mes/10<1) cout << "0"<< aux.mes << "/"<< aux.anio << "   |"<< endl;
+else cout << aux.mes << "/"<< aux.anio << "   |"<< endl;
 cout << " ===================================================== "<< endl;
 cout << "|                M E N U     P L A T O S              |"<< endl;
 cout << "|-----------------------------------------------------|"<< endl;

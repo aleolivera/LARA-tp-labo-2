@@ -20,9 +20,7 @@ struct plato{
 };
 
 struct fecha{
-    int dia;
-    int mes;
-    int anio;
+    int dia, mes, anio;
 };
 
 struct cliente{
@@ -36,4 +34,14 @@ struct cliente{
     bool estado;
 };
 
+struct pedido{
+    int IDpedido;
+    int IDcliente;
+    int IDplato;
+    int cantidad;
+    float imp;
+    fecha fechaPedido;
+    float valoracion;
+    int estado;
+};
 #endif // STRUCTS_H_INCLUDED

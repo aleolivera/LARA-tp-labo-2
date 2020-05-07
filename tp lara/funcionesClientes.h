@@ -242,7 +242,12 @@ bool validarFebrero(int*dia,int*anio){
     }
     return false;
 }
-bool validarNacimiento(int dia,int mes,int anio){
+bool validarFecha(int dia,int mes,int anio){
+    struct fecha aux;
+    aux=fechaActual();
+    if (anio>aux.anio){
+        return false;
+    }
     if (mes==2 && !validarFebrero(&dia,&anio)){
         return false;
     }
@@ -287,7 +292,7 @@ int validarMail(struct cliente*reg){
 }
 
 //funciones de carga
-int asignarID(){
+int asignarIDcliente(){
     struct cliente reg;
     FILE*p=fopen(ARCHIVOCLIENTES,"rb");
     if(p==NULL){
@@ -324,7 +329,6 @@ bool cargarNombre(char*nombres,int cant){
 }
 bool cargarApellido(char*apellido,int cant){
     cout << "               APELLIDO/S: ";
-    cin.ignore();
     cin.getline(apellido,cant);
     if (apellido[0]=='\0'){
         system("cls");
@@ -338,7 +342,7 @@ bool cargarApellido(char*apellido,int cant){
 }
 bool cargarEmail(struct cliente*reg,int cant){
     cout << "                    @MAIL: ";
-    cin.ignore();
+
     cin.getline(reg->mail,cant);
     switch (validarMail(reg)){
         case 1:
@@ -389,7 +393,7 @@ bool cargarEmail(struct cliente*reg,int cant){
 }
 bool cargarDomicilio(char*domicilio,int cant){
     cout << "                DOMICILIO: ";
-    cin.ignore();
+
     cin.getline(domicilio,cant);
     if (domicilio[0]=='\0'){
         system("cls");
@@ -423,7 +427,7 @@ bool cargarFecha(struct cliente*reg){
     cin >> reg->nacimiento.mes;
     cout << "                     ANIO: ";
     cin >> reg->nacimiento.anio;
-    if(!validarNacimiento(reg->nacimiento.dia,reg->nacimiento.mes,reg->nacimiento.anio)){
+    if(!validarFecha(reg->nacimiento.dia,reg->nacimiento.mes,reg->nacimiento.anio)){
         system("cls");
         cout << endl << endl;
         system("color 4f");
@@ -495,7 +499,7 @@ bool cargarCliente(){
     cout << " ===================================================== "<< endl;
 
     cout << "                        ID: ";
-    reg.IDcliente=asignarID();
+    reg.IDcliente=asignarIDcliente();
     cout << reg.IDcliente << endl;
 
     if(!cargarNombre(reg.nombres,49)){

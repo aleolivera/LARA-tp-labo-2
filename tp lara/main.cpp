@@ -2,10 +2,12 @@
 #include <cstdlib>
 #include <cstdio>
 #include <string.h>
+#include <ctime>
 using namespace std;
 #include "structs.h"
 #include "funciones.h"
 #include "funcionesClientes.h"
+#include "funcionesPedidos.h"
 
 int main()
 {
@@ -204,12 +206,10 @@ int main()
                             cout << " ===================================================== "<< endl;
                         }
                         cin.ignore();
-                        cin.get();
                         break;
                     case 4:
                         listarTodosClientes();
                         cin.ignore();
-                        cin.get();
                         break;
                     case 5:
                         cout << " ===================================================== "<< endl;
@@ -239,10 +239,30 @@ int main()
                 cin.get();
                 break;
             case 3:
-                cout << "UNDER CONSTRUCTION." << endl;
+                presentacionSubmenuPedidos();
+                cin >> op;
+                system("cls");
+                switch(op){
+                case 1:
+                    if(cargarPedido()){
+                        cout << "se pudo" << endl;
+                    }
+                    else{
+                        cout << "no se pudo" << endl;
+                    }
+                    break;
+                case 2:
+
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 0:
+                    break;
                 cin.ignore();
                 cin.get();
-                break;
+                }
             case 4:
                 cout << "UNDER CONSTRUCTION." << endl;
                 cin.ignore();
