@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1588990043 source:c:\users\yerbaa\documents\github\lara-tp-labo-2\tp lara\main.cpp
+1589061203 source:c:\users\yerbaa\documents\github\lara-tp-labo-2\tp lara\main.cpp
 	<iostream>
 	<cstdlib>
 	<cstdio>
@@ -11,13 +11,13 @@
 	"funcionesPedidos.h"
 	"funcionesConfig.h"
 
-1588990031 c:\users\yerbaa\documents\github\lara-tp-labo-2\tp lara\structs.h
+1588993730 c:\users\yerbaa\documents\github\lara-tp-labo-2\tp lara\structs.h
 
-1588983037 c:\users\yerbaa\documents\github\lara-tp-labo-2\tp lara\funciones.h
+1589058243 c:\users\yerbaa\documents\github\lara-tp-labo-2\tp lara\funciones.h
 
-1588986055 c:\users\yerbaa\documents\github\lara-tp-labo-2\tp lara\funcionesclientes.h
+1589060860 c:\users\yerbaa\documents\github\lara-tp-labo-2\tp lara\funcionesclientes.h
 
-1588986055 c:\users\yerbaa\documents\github\lara-tp-labo-2\tp lara\funcionespedidos.h
+1589059363 c:\users\yerbaa\documents\github\lara-tp-labo-2\tp lara\funcionespedidos.h
 
-1588990965 c:\users\yerbaa\documents\github\lara-tp-labo-2\tp lara\funcionesconfig.h
+1589060480 c:\users\yerbaa\documents\github\lara-tp-labo-2\tp lara\funcionesconfig.h
 

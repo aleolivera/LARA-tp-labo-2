@@ -50,11 +50,14 @@ bool backupPlatos(){
     FILE*pBackup=fopen(BKPPLATOS,"wb");
     if(pBackup==NULL){
         errorArchivo();
+        fclose(pArchivo);
         return false;
     }
     while(fread(&reg,sizeof reg,1,pArchivo)==1){
         fwrite(&reg,sizeof reg,1,pBackup);
     }
+    fclose(pArchivo);
+    fclose(pBackup);
     return true;
 }
 bool backupClientes(){
@@ -64,14 +67,17 @@ bool backupClientes(){
         errorArchivo();
         return false;
     }
-    FILE*pBackup=fopen(BKPCLIENTES,"wd");
+    FILE*pBackup=fopen(BKPCLIENTES,"wb");
     if(pBackup==NULL){
         errorArchivo();
+        fclose(pArchivo);
         return false;
     }
     while(fread(&reg,sizeof reg,1,pArchivo)==1){
         fwrite(&reg,sizeof reg,1,pBackup);
     }
+    fclose(pArchivo);
+    fclose(pBackup);
     return true;
 }
 bool backupPedidos(){
@@ -84,11 +90,14 @@ bool backupPedidos(){
     FILE*pBackup=fopen(BKPPEDIDOS,"wb");
     if(pBackup==NULL){
         errorArchivo();
+        fclose(pArchivo);
         return false;
     }
     while(fread(&reg,sizeof reg,1,pArchivo)==1){
         fwrite(&reg,sizeof reg,1,pBackup);
     }
+    fclose(pArchivo);
+    fclose(pBackup);
     return true;
 }
 
@@ -103,11 +112,14 @@ bool restaurarPlatos(){
     FILE*pBackup=fopen(BKPPLATOS,"rb");
     if(pBackup==NULL){
         errorArchivo();
+        fclose(pArchivo);
         return false;
     }
     while(fread(&reg,sizeof reg,1,pBackup)==1){
         fwrite(&reg,sizeof reg,1,pArchivo);
     }
+    fclose(pArchivo);
+    fclose(pBackup);
     return true;
 }
 bool restaurarClientes(){
@@ -120,11 +132,14 @@ bool restaurarClientes(){
     FILE*pBackup=fopen(BKPCLIENTES,"rb");
     if(pBackup==NULL){
         errorArchivo();
+        fclose(pArchivo);
         return false;
     }
     while(fread(&reg,sizeof reg,1,pBackup)==1){
         fwrite(&reg,sizeof reg,1,pArchivo);
     }
+    fclose(pArchivo);
+    fclose(pBackup);
     return true;
 }
 bool restaurarPedidos(){
@@ -137,11 +152,14 @@ bool restaurarPedidos(){
     FILE*pBackup=fopen(BKPPEDIDOS,"rb");
     if(pBackup==NULL){
         errorArchivo();
+        fclose(pArchivo);
         return false;
     }
     while(fread(&reg,sizeof reg,1,pBackup)==1){
         fwrite(&reg,sizeof reg,1,pArchivo);
     }
+    fclose(pArchivo);
+    fclose(pBackup);
     return true;
 }
 

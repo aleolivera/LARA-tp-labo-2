@@ -152,7 +152,11 @@ void mostrarCliente(struct cliente*reg){
         espacios--;
         }
     cout << "|" << endl;
-    cout << "|  FECHA DE NACIMIENTO: " << reg->nacimiento.dia << "/" << reg->nacimiento.mes <<"/" << reg->nacimiento.anio;
+    cout << "|  FECHA DE NACIMIENTO: ";
+    if(reg->nacimiento.dia<10) cout << "0";
+    cout << reg->nacimiento.dia << "/";
+     if (reg->nacimiento.mes<10) cout << "0";
+     cout << reg->nacimiento.mes << "/" << reg->nacimiento.anio;
     cout << "                    |" << endl;
 
     cout << "|               ESTADO: ";

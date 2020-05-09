@@ -403,21 +403,11 @@ void mensageExito(char const cadena[TAMCELDAMENSAJE]){
 //funciones de validacion
 bool validarImporte(struct plato*reg){
     if(reg->imp < reg->costo){
-        system("cls");
-        cout << endl << endl;
-        system("color 4f");
-        cout << " ===================================================== "<< endl;
-        cout << "| EL IMPORTE DE VENTA NO PUEDE SER MENOR AL COSTO     |" << endl;
-        cout << " ===================================================== "<< endl;
+        errorEncabezado("EL IMPORTE DE VENTA NO PUEDE SER MENOR AL COSTO");
         return false;
     }
     else if(reg->imp < 0){
-        system("cls");
-        cout << endl << endl;
-        system("color 4f");
-        cout << " ===================================================== "<< endl;
-        cout << "|      EL IMPORTE DE VENTA NO PUEDE SER CERO          |" << endl;
-        cout << " ===================================================== "<< endl;
+        errorEncabezado("EL IMPORTE DE VENTA NO PUEDE SER CERO");
         return false;
     }
     return true;

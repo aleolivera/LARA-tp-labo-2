@@ -14,6 +14,7 @@ const int TAMCELDACLIENTE=30;
 const int TAMCELDAPLATO=30;
 const int TAMCELDAMENSAJE=54;
 
+//tipos de dato
 struct plato{
     int IDplato;
     char nombre[50];
@@ -25,11 +26,9 @@ struct plato{
     int categoria;
     bool estado;
 };
-
 struct fecha{
     int dia, mes, anio;
 };
-
 struct cliente{
     int IDcliente;
     char apellidos [50];
@@ -40,7 +39,6 @@ struct cliente{
     fecha nacimiento;
     bool estado;
 };
-
 struct pedido{
     int IDpedido;
     int IDcliente;

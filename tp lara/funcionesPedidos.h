@@ -99,7 +99,7 @@ int espacios;
     if(reg->fechaPedido.dia<10) cout << "0";
     cout << reg->fechaPedido.dia << "/";
     if(reg->fechaPedido.mes<10) cout << "0";
-    cout << reg->fechaPedido.mes <<"/" << reg->fechaPedido.anio;
+    cout << reg->fechaPedido.mes << "/" << reg->fechaPedido.anio;
     cout << "                    |" << endl;
 
     cout << "|            VALORACION: " << reg->valoracion;

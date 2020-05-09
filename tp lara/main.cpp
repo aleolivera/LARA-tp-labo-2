@@ -46,6 +46,7 @@ int main()
                         cin >> id;
                         cout << endl;
                         cout << " ===================================================== "<< endl;
+                        cin.ignore();
                         if(modificarPlato(&id)){
                             mensageExito("PLATO MODIFICADO EXITOSAMENTE");
                         }
@@ -89,12 +90,12 @@ int main()
                         cin >> id;
                         cout << endl;
                         cout << " ===================================================== "<< endl;
+                        cin.ignore();
                         if(bajaPlato(&id)){
                             mensageExito("EL PLATO SE HA ELIMINADO EXITOSAMENTE");
                         }
                         else{
                             errorPie("NO SE ENCONTRO NINGUN PLACO CON ESE ID");
-                            cin.ignore();
                         }
                         break;
                     case 0:
@@ -109,23 +110,12 @@ int main()
                 switch (op){
                     case 1:
                         if(cargarCliente()){
-                            cout << endl << endl;
-                            system("color 2f");
-                            cout << " ===================================================== "<< endl;
-                            cout << "|      EL CLIENTE SE HA CARGADO CON EXITO             |"<< endl;
-                            cout << " ===================================================== "<< endl;
-                            cin.ignore();
-
+                            mensageExito("EL CLIENTE SE HA CARGADO EXITOSAMENTE");
                         }
                         else{
-                            system("color 4f");
-                            cout << " ----------------------------------------------------- "<< endl;
-                            cout << "|                                                     |" << endl;
-                            cout << "|         EL CLIENTE NO SE HA PODIDO CARGAR           |"<< endl;
-                            cout << "|                                                     |" << endl;
-                            cout << " ===================================================== "<< endl;
-                            cin.ignore();
+                            errorPie("EL CLIENTE NO SE PUDO CARGAR");
                         }
+                        cin.ignore();
                         break;
                     case 2:
                         cout << " ===================================================== "<< endl;
@@ -134,21 +124,12 @@ int main()
                         cin >> id;
                         cout << endl;
                         cout << " ===================================================== "<< endl;
+                        cin.ignore();
                         if(modificarCliente(&id)){
-                            system("cls");
-                            cout << endl << endl;
-                            system("color 2f");
-                            cout << " ===================================================== "<< endl;
-                            cout << "|        CLIENTE MODIFICADO EXITOSAMENTE               |"<< endl;
-                            cout << " ===================================================== "<< endl;
+                            mensageExito("CLIENTE MODIFICADO EXITOSAMENTE");
                         }
                         else{
-                            system("color 4f");
-                            cout << " ----------------------------------------------------- "<< endl;
-                            cout << "|                                                      |" << endl;
-                            cout << "|       EL CLIENTE NO SE HA PODIDO MODIFICAR           |" << endl;
-                            cout << "|                                                      |" << endl;
-                            cout << " ===================================================== "<< endl;
+                            errorPie("EL CLIENTE NO SE HA PODIDO MODIFICAR");
                         }
                         cin.ignore();
                         break;
@@ -160,10 +141,7 @@ int main()
                         cout << endl;
                         cout << " ===================================================== "<< endl;
                         if(!listarClienteID(&id)){
-                            system("color 4f");
-                            cout << " ----------------------------------------------------- "<< endl;
-                            cout << "|     EL CLIENTE NO SE ENCUENTRA EN EL ARCHIVO         |" << endl;
-                            cout << " ===================================================== "<< endl;
+                            errorPie("EL CLIENTE NO SE ENCUENTRA EN EL ARCHIVO");
                         }
                         cin.ignore();
                         break;
@@ -179,17 +157,10 @@ int main()
                         cout << endl;
                         cout << " ===================================================== "<< endl;
                         if(bajaCliente(&id)){
-                            cout << endl << endl;
-                            system("color 2f");
-                            cout << " ===================================================== "<< endl;
-                            cout << "|     EL CLIENTE SE HA ELIMADO EXITOSAMENTE           |"<< endl;
-                            cout << " ===================================================== "<< endl;
+                            mensageExito("EL CLIENTE SE HA ELIMINADO EXITOSAMENTE");
                         }
                         else{
-                            system("color 4f");
-                            cout << " ----------------------------------------------------- "<< endl;;
-                            cout << "|    NO SE ENCONTRO NINGUN CLIENTE CON ESE ID         |" << endl;
-                            cout << " ===================================================== "<< endl;
+                            errorPie("NO SE ENCONTRO NINGUN CLIENTE CON ESE ID");
                         }
                         cin.ignore();
                         break;
@@ -220,6 +191,7 @@ int main()
                     cin >> id;
                     cout << endl;
                     cout << " ===================================================== "<< endl;
+                    cin.ignore();
                     switch(modificarPedido(&id)){
                         case 1:
                             cout << "|                                                     |"<< endl;
@@ -305,7 +277,6 @@ int main()
                 salir=true;
                 break;
         }
-
     }
     return 0;
 }
