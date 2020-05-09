@@ -245,7 +245,7 @@ bool validarFebrero(int*dia,int*anio){
 bool validarFecha(int dia,int mes,int anio){
     struct fecha aux;
     aux=fechaActual();
-    if (anio>aux.anio || mes>12){
+    if (((anio>aux.anio)||(anio<=aux.anio&&mes>aux.mes)||(anio<=aux.anio&&mes<=aux.mes&&dia>aux.dia)) || (mes>12)){
         return false;
     }
     if (mes==2 && !validarFebrero(&dia,&anio)){
