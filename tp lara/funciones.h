@@ -2,6 +2,12 @@
 #define FUNCIONES_H_INCLUDED
 
 //funciones varias
+void errorArchivo(){
+    cout << endl << endl;
+    system("color 4f");
+    cout << " ===================================================== "<< endl;
+    cout << "|        EL ARCHIVO NO SE PUDO ABRIR                  |"<<endl;
+}
 int contarCifrasInt(int n){
     int t, div=1, cifras=0;
     bool b=true;
@@ -32,7 +38,7 @@ int contarCifrasFloat(float n){
         }
     }
     decimales=(int)n;
-    if(decimales-n!=0){
+    if(n-decimales!=0){
         cifras+=3;
     }
     return cifras;
@@ -93,11 +99,7 @@ int buscarRegID(int*id){
     struct plato reg;
     FILE*p=fopen(ARCHIVOPLATOS,"rb");
     if(p==NULL){
-        cout << endl << endl;
-        system("color 4f");
-        cout << " ===================================================== "<< endl;
-        cout << "|        EL ARCHIVO NO SE PUDO ABRIR                  |" << endl;
-        cout << " ===================================================== "<< endl;
+        errorArchivo();
         return 0;
     }
     while(fread(&reg,sizeof reg,1,p)==1){
@@ -119,6 +121,12 @@ struct fecha fechaActual(){
     aux.mes=f->tm_mon+1;
     aux.anio=f->tm_year+1900;
     return aux;
+}
+void ponerEspacios(int*espacios){
+     while(*espacios>0){
+        cout << " ";
+        *espacios-=1;
+        }
 }
 
 //funciones de impresion de pantalla
@@ -239,11 +247,7 @@ bool listarPlatoID(int*id){
     struct plato reg;
     FILE*p=fopen(ARCHIVOPLATOS,"rb");
     if(p==NULL){
-        cout << endl << endl;
-        system("color 4f");
-        cout << " ===================================================== "<< endl;
-        cout << "|        EL ARCHIVO NO SE PUDO ABRIR                  |" << endl;
-        cout << " ===================================================== "<< endl;
+        errorArchivo();
         return false;
     }
     while(fread(&reg,sizeof reg,1,p)==1){
@@ -259,11 +263,7 @@ bool listarPlatoRes(int*restaurante){
     struct plato reg;
     FILE*p=fopen(ARCHIVOPLATOS,"rb");
     if(p==NULL){
-        cout << endl << endl;
-        system("color 4f");
-        cout << " ===================================================== "<< endl;
-        cout << "|        EL ARCHIVO NO SE PUDO ABRIR                  |" << endl;
-        cout << " ===================================================== "<< endl;
+        errorArchivo();
         return false;
     }
     while(fread(&reg,sizeof reg,1,p)==1){
@@ -306,11 +306,7 @@ void listarTodosPlatos(){
     bool saltoLinea=false;
     FILE*p=fopen(ARCHIVOPLATOS,"rb");
     if(p==NULL){
-        cout << endl << endl;
-        system("color 4f");
-        cout << " ===================================================== "<< endl;
-        cout << "|        EL ARCHIVO NO SE PUDO ABRIR                  |" << endl;
-        cout << " ===================================================== "<< endl;
+        errorArchivo();
         return;
     }
 
@@ -328,6 +324,80 @@ void listarTodosPlatos(){
     }
 
     cout << "|_______|______________________________|_______|_________|___________|____________|__________|___________|_____________|";
+}
+void errorEncabezado(char const cadena[TAMCELDAMENSAJE]){
+    system("cls");
+    cout << endl << endl;
+    system("color 4f");
+    cout << " ====================================================== "<< endl;
+    cout << "|";
+    int margenIzq,margenDer;
+    int longitud=strlen(cadena);
+    margenIzq=(TAMCELDAMENSAJE-longitud)/2;
+    margenDer=margenIzq;
+    if ((TAMCELDAMENSAJE%2!=0 && longitud%2==0)||(TAMCELDAMENSAJE%2==0 && longitud%2!=0)){
+        cout << " ";
+    }
+    while (margenIzq>0){
+        cout <<" ";
+        margenIzq--;
+    }
+    cout << cadena;
+    while (margenDer>0){
+        cout <<" ";
+        margenDer--;
+    }
+    cout << "|"<< endl;
+}
+void errorPie(char const cadena[TAMCELDAMENSAJE]){
+    system("color 4f");
+    cout << " ------------------------------------------------------ "<< endl;
+    cout << "|                                                      |" << endl;
+    cout << "|";
+    int margenIzq,margenDer;
+    int longitud=strlen(cadena);
+    margenIzq=(TAMCELDAMENSAJE-longitud)/2;
+    margenDer=margenIzq;
+    if ((TAMCELDAMENSAJE%2!=0 && longitud%2==0)||(TAMCELDAMENSAJE%2==0 && longitud%2!=0)){
+        cout << " ";
+    }
+    while (margenIzq>0){
+        cout <<" ";
+        margenIzq--;
+    }
+    cout << cadena;
+    while (margenDer>0){
+        cout <<" ";
+        margenDer--;
+    }
+    cout << "|"<< endl;
+    cout << "|                                                      |" << endl;
+    cout << " ====================================================== "<< endl;
+}
+void mensageExito(char const cadena[TAMCELDAMENSAJE]){
+    system("cls");
+    cout << endl << endl;
+    system("color 2f");
+    cout << " ====================================================== "<< endl;
+    cout << "|";
+    int margenIzq,margenDer;
+    int longitud=strlen(cadena);
+    margenIzq=(TAMCELDAMENSAJE-longitud)/2;
+    margenDer=margenIzq;
+    if ((TAMCELDAMENSAJE%2!=0 && longitud%2==0)||(TAMCELDAMENSAJE%2==0 && longitud%2!=0)){
+        cout << " ";
+    }
+    while (margenIzq>0){
+        cout <<" ";
+        margenIzq--;
+    }
+    cout << cadena;
+    while (margenDer>0){
+        cout <<" ";
+        margenDer--;
+    }
+    cout << "|"<< endl;
+    cout << " ====================================================== "<< endl;
 }
 
 //funciones de validacion
@@ -367,13 +437,7 @@ int validarID(int id){
         FILE*p;
         p=fopen(ARCHIVOPLATOS,"rb");
         if(p==NULL){
-            system("cls");
-            cout << endl << endl;
-            system("color 4f");
-            cout << " ===================================================== "<< endl;
-            cout << "|        EL ARCHIVO NO SE PUDO ABRIR                  |" << endl;
-            cout << " ===================================================== "<< endl;
-            fclose(p);
+            errorArchivo();
             return -1;
         }
         while(fread(&reg,sizeof reg,1,p)==1){
@@ -382,7 +446,7 @@ int validarID(int id){
             cout << endl << endl;
             system("color 4f");
             cout << " ===================================================== "<< endl;
-            cout << "|    EL ID DEL PLATO YA FUE ASIGNADO A OTRO PLATO     |" << endl;
+            cout << "|        EL ID DEL PLATO YA FUE ASIGNADO A OTRO       |" << endl;
             cout << " ===================================================== "<< endl;
                 fclose(p);
                 return -1;
@@ -500,11 +564,7 @@ bool bajaPlato(int*id){
     struct plato reg;
     FILE*p=fopen(ARCHIVOPLATOS,"rb+");
     if(p==NULL){
-        cout << endl << endl;
-        system("color 4f");
-        cout << " ===================================================== "<< endl;
-        cout << "|        EL ARCHIVO NO SE PUDO ABRIR                  |" << endl;
-        cout << " ===================================================== "<< endl;
+        errorArchivo();
         return false;
     }
     while(fread(&reg,sizeof reg,1,p)==1){
@@ -523,11 +583,7 @@ bool cargarPlatos(){
     struct plato reg;
     FILE*p=fopen(ARCHIVOPLATOS,"ab");
     if(p==NULL){
-        cout << endl << endl;
-        system("color 4f");
-        cout << " ===================================================== "<< endl;
-        cout << "|        EL ARCHIVO NO SE PUDO ABRIR                  |" << endl;
-        cout << " ===================================================== "<< endl;
+        errorArchivo();
         return false;
     }
     system("cls");
@@ -577,11 +633,7 @@ bool modificarPlato(int*id){
     struct plato reg;
     FILE*p=fopen(ARCHIVOPLATOS,"rb+");
     if(p==NULL){
-        cout << endl << endl;
-        system("color 4f");
-        cout << " ===================================================== "<< endl;
-        cout << "|        EL ARCHIVO NO SE PUDO ABRIR                  |" << endl;
-        cout << " ===================================================== "<< endl;
+        errorArchivo();
         return false;
     }
     while(fread(&reg,sizeof reg,1,p)==1){

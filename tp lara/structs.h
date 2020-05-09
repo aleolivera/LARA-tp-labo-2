@@ -1,11 +1,18 @@
 #ifndef STRUCTS_H_INCLUDED
 #define STRUCTS_H_INCLUDED
 
+//constantes de archivos
 const char ARCHIVOPLATOS[11]="platos.dat";
 const char ARCHIVOCLIENTES[13]="clientes.dat";
 const char ARCHIVOPEDIDOS[12]="pedidos.dat";
+const char BKPPLATOS[11]="platos.bkp";
+const char BKPCLIENTES[13]="clientes.bkp";
+const char BKPPEDIDOS[12]="pedidos.bkp";
+
+//constantes de
 const int TAMCELDACLIENTE=30;
 const int TAMCELDAPLATO=30;
+const int TAMCELDAMENSAJE=54;
 
 struct plato{
     int IDplato;

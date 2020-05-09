@@ -103,18 +103,18 @@ cout << " ===================================================== "<< endl;
 cout << "|                       L A R A                       |"<< endl;
 cout << " ===================================================== "<< endl;
 }
-void mostrarCliente(struct cliente*reg,int TAM){
+void mostrarCliente(struct cliente*reg){
     int espacios;
     cout << " ===================================================== "<< endl;
     cout << "|                   ID: " << reg->IDcliente;
-    espacios=TAM-contarCifrasInt(reg->IDcliente);
+    espacios=TAMCELDACLIENTE-contarCifrasInt(reg->IDcliente);
     while(espacios>0){
         cout << " ";
         espacios--;
         }
     cout << "|" << endl;
     cout << "|               NOMBRE: " << reg->nombres;
-    espacios=TAM-strlen(reg->nombres);
+    espacios=TAMCELDACLIENTE-strlen(reg->nombres);
     while(espacios>0){
         cout << " ";
         espacios--;
@@ -122,7 +122,7 @@ void mostrarCliente(struct cliente*reg,int TAM){
 
     cout << "|" << endl;
     cout << "|             APELLIDO: " << reg->apellidos;
-    espacios=TAM-strlen(reg->apellidos);
+    espacios=TAMCELDACLIENTE-strlen(reg->apellidos);
     while(espacios>0){
         cout << " ";
         espacios--;
@@ -131,7 +131,7 @@ void mostrarCliente(struct cliente*reg,int TAM){
 
     cout << "|" << endl;
     cout << "|                @MAIL: " << reg->mail;
-    espacios=TAM-strlen(reg->mail);
+    espacios=TAMCELDACLIENTE-strlen(reg->mail);
     while(espacios>0){
         cout << " ";
         espacios--;
@@ -139,14 +139,14 @@ void mostrarCliente(struct cliente*reg,int TAM){
 
     cout << "|" << endl;
     cout << "|            DOMICILIO: " << reg->domicilio;
-    espacios=TAM-strlen(reg->domicilio);
+    espacios=TAMCELDACLIENTE-strlen(reg->domicilio);
     while(espacios>0){
         cout << " ";
         espacios--;
         }
     cout << "|" << endl;
     cout << "|        CODIGO POSTAL: " << reg->CP;
-    espacios=TAM-contarCifrasInt(reg->CP);
+    espacios=TAMCELDACLIENTE-contarCifrasInt(reg->CP);
     while(espacios>0){
         cout << " ";
         espacios--;
@@ -168,16 +168,12 @@ bool listarClienteID(int*id){
     struct cliente reg;
     FILE*p=fopen(ARCHIVOCLIENTES,"rb");
     if(p==NULL){
-        cout << endl << endl;
-        system("color 4f");
-        cout << " ===================================================== "<< endl;
-        cout << "|        EL ARCHIVO NO SE PUDO ABRIR                  |" << endl;
-        cout << " ===================================================== "<< endl;
+        errorArchivo();
         return false;
     }
     while(fread(&reg,sizeof reg,1,p)==1){
         if(*id==reg.IDcliente){
-            mostrarCliente(&reg,TAMCELDACLIENTE);
+            mostrarCliente(&reg);
             fclose(p);
             return true;
         }
@@ -187,7 +183,7 @@ bool listarClienteID(int*id){
 void mostrarVectorCliente(struct cliente*v,int tam){
     for(int i=0;i<tam;i++){
         if(v->IDcliente!=0){
-        mostrarCliente(&v[i],TAMCELDACLIENTE);
+        mostrarCliente(&v[i]);
         }
     }
 }
@@ -245,7 +241,7 @@ bool validarFebrero(int*dia,int*anio){
 bool validarFecha(int dia,int mes,int anio){
     struct fecha aux;
     aux=fechaActual();
-    if (anio>aux.anio){
+    if (anio>aux.anio || mes>12){
         return false;
     }
     if (mes==2 && !validarFebrero(&dia,&anio)){
@@ -296,10 +292,7 @@ int asignarIDcliente(){
     struct cliente reg;
     FILE*p=fopen(ARCHIVOCLIENTES,"rb");
     if(p==NULL){
-        cout << endl << endl;
-        system("color 4f");
-        cout << " ===================================================== "<< endl;
-        cout << "|        EL ARCHIVO NO SE PUDO ABRIR                  |"<<endl;
+        errorArchivo();
         return -1;
     }
     if(fread(&reg,sizeof reg,1,p)==0){
@@ -393,7 +386,6 @@ bool cargarEmail(struct cliente*reg,int cant){
 }
 bool cargarDomicilio(char*domicilio,int cant){
     cout << "                DOMICILIO: ";
-
     cin.getline(domicilio,cant);
     if (domicilio[0]=='\0'){
         system("cls");
@@ -420,7 +412,7 @@ bool cargarCP(int*CP){
     return true;
 }
 bool cargarFecha(struct cliente*reg){
-    cout << "       FECHA DE NACIMIENTO " << endl;
+    cout << "       FECHA DE NACIMIENTO DD/MM/AAAA" << endl;
     cout << "                      DIA: ";
     cin >> reg->nacimiento.dia;
     cout << "                      MES: ";
@@ -443,15 +435,15 @@ bool modificarCliente(int*id){
     struct cliente reg;
     FILE*p=fopen(ARCHIVOCLIENTES,"rb+");
     if(p==NULL){
-        cout << endl << endl;
-        system("color 4f");
-        cout << " ===================================================== "<< endl;
-        cout << "|        EL ARCHIVO NO SE PUDO ABRIR                  |" << endl;
+        errorArchivo();
         return false;
     }
     while(fread(&reg,sizeof reg,1,p)==1){
         if(*id==reg.IDcliente){
-            cargarDomicilio(reg.domicilio,99);
+            if(!cargarDomicilio(reg.domicilio,99)){
+                fclose(p);
+                return false;
+            }
             fseek(p,(ftell(p)-sizeof reg),0);
             fwrite(&reg,sizeof reg,1,p);
             fclose(p);
@@ -465,10 +457,7 @@ bool bajaCliente(int*id){
     struct cliente reg;
     FILE*p=fopen(ARCHIVOCLIENTES,"rb+");
     if(p==NULL){
-        cout << endl << endl;
-        system("color 4f");
-        cout << " ===================================================== "<< endl;
-        cout << "|        EL ARCHIVO NO SE PUDO ABRIR                  |"<<endl;
+        errorArchivo();
         return false;
     }
     while(fread(&reg,sizeof reg,1,p)==1){
@@ -487,10 +476,7 @@ bool cargarCliente(){
     struct cliente reg;
     FILE*p=fopen(ARCHIVOCLIENTES,"ab");
     if(p==NULL){
-        cout << endl << endl;
-        system("color 4f");
-        cout << " ===================================================== "<< endl;
-        cout << "|        EL ARCHIVO NO SE PUDO ABRIR                  |"<<endl;
+        errorArchivo();
         return false;
     }
     system("cls");

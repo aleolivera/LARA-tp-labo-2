@@ -8,6 +8,7 @@ using namespace std;
 #include "funciones.h"
 #include "funcionesClientes.h"
 #include "funcionesPedidos.h"
+#include "funcionesConfig.h"
 
 int main()
 {
@@ -28,20 +29,12 @@ int main()
                 switch(op){
                     case 1:
                         if(cargarPlatos()){
-                            system("cls");
-                            cout << endl << endl;
-                            system("color 2f");
-                            cout << " ===================================================== "<< endl;
-                            cout << "|        EL PLATO SE HA CARGADO CON EXITO             |"<< endl;
-                            cout << " ===================================================== "<< endl;
+                            mensageExito("EL PLATO SE HA CARGADO CON EXITO");
 
                         }
                         else{
-                            cout << endl << endl;
-                            system("color 4f");
-                            cout << " ===================================================== "<< endl;
-                            cout << "|        EL PLATO NO SE HA PODIDO CARGAR              |" << endl;
-                            cout << " ===================================================== "<< endl;
+                            errorPie("EL PLATO NO SE HA ODIDO CARGAR");
+                            cin.ignore();
                         }
                         cin.ignore();
                         cin.get();
@@ -54,22 +47,12 @@ int main()
                         cout << endl;
                         cout << " ===================================================== "<< endl;
                         if(modificarPlato(&id)){
-                            system("cls");
-                            cout << endl << endl;
-                            system("color 2f");
-                            cout << " ===================================================== "<< endl;
-                            cout << "|        PLATO MODIFICADO EXITOSAMENTE                |"<< endl;
-                            cout << " ===================================================== "<< endl;
+                            mensageExito("PLATO MODIFICADO EXITOSAMENTE");
                         }
                         else{
-                            cout << endl << endl;
-                            system("color 4f");
-                            cout << " ===================================================== "<< endl;
-                            cout << "|        EL PLATO NO SE HA PODIDO MODIFICAR           |" << endl;
-                            cout << " ===================================================== "<< endl;
+                            errorPie("EL PLATO NO SE HA PODIDO MODIFICAR");
+                            cin.ignore();
                         }
-                        cin.ignore();
-                        cin.get();
                         break;
                     case 3:
                         cout << " ===================================================== "<< endl;
@@ -79,14 +62,9 @@ int main()
                         cout << endl;
                         cout << " ===================================================== "<< endl;
                         if(!listarPlatoID(&id)){
-                            cout << endl << endl;
-                            system("color 4f");
-                            cout << " ===================================================== "<< endl;
-                            cout << "|      EL PLATO NO SE ENCUENTRA EN EL ARCHIVO         |" << endl;
-                            cout << " ===================================================== "<< endl;
+                            errorPie("EL PLATO NO SE ENCUENTRA EN EL ARCHIVO");
+                            cin.ignore();
                         }
-                        cin.ignore();
-                        cin.get();
                         break;
                     case 4:
                         cout << " ===================================================== "<< endl;
@@ -95,22 +73,14 @@ int main()
                         cout << endl;
                         cout << " ===================================================== "<< endl;
                         if(!listarPlatoRes(&id)){
-                            cout << endl << endl;
-                            system("color 4f");
-                            cout << " ===================================================== "<< endl;
-                            cout << "|        NO SE ENCONTRO EL RESTAURANTE                |" << endl;
-                            cout << " ===================================================== "<< endl;
+                            errorPie("NO SE ENCONTRO EL RESTAURANTE");
                             cin.ignore();
-                            cin.get();
                         }
-                        cin.ignore();
-                        cin.get();
                         break;
                     case 5:
                         system("cls");
                         listarTodosPlatos();
-                        cin.ignore();
-                        cin.get();
+                        cin.ignore();;
                         break;
                     case 6:
                         cout << " ===================================================== "<< endl;
@@ -120,26 +90,17 @@ int main()
                         cout << endl;
                         cout << " ===================================================== "<< endl;
                         if(bajaPlato(&id)){
-                            cout << endl << endl;
-                            system("color 2f");
-                            cout << " ===================================================== "<< endl;
-                            cout << "|       EL PLATO SE HA ELIMADO EXITOSAMENTE           |"<< endl;
-                            cout << " ===================================================== "<< endl;
-
+                            mensageExito("EL PLATO SE HA ELIMINADO EXITOSAMENTE");
                         }
                         else{
-                            cout << endl << endl;
-                            system("color 4f");
-                            cout << " ===================================================== "<< endl;
-                            cout << "|     NO SE ENCONTRO NINGUN PLATO CON ESE ID          |" << endl;
-                            cout << " ===================================================== "<< endl;
+                            errorPie("NO SE ENCONTRO NINGUN PLACO CON ESE ID");
+                            cin.ignore();
                         }
-                        cin.ignore();
-                        cin.get();
                         break;
                     case 0:
                         break;
                 }
+                cin.get();
                 break;
             case 2:
                 presentacionSubmenuCL();
@@ -148,7 +109,6 @@ int main()
                 switch (op){
                     case 1:
                         if(cargarCliente()){
-                            system("cls");
                             cout << endl << endl;
                             system("color 2f");
                             cout << " ===================================================== "<< endl;
@@ -245,31 +205,96 @@ int main()
                 switch(op){
                 case 1:
                     if(cargarPedido()){
-                        cout << "se pudo" << endl;
+                        mensageExito("EL PEDIDO SE HA CARGADO CON EXITO");
+
                     }
                     else{
-                        cout << "no se pudo" << endl;
+                        errorPie("EL PEDIDO NO SE HA PODIDO CARGAR");
+                        cin.ignore();
                     }
                     break;
                 case 2:
-
+                    cout << " ===================================================== "<< endl;
+                    cout << "|              MODIFICAR PEDIDO                       |"<< endl;
+                    cout << "|       INGRESE EL ID DEL PEDIDO: ";
+                    cin >> id;
+                    cout << endl;
+                    cout << " ===================================================== "<< endl;
+                    switch(modificarPedido(&id)){
+                        case 1:
+                            cout << "|                                                     |"<< endl;
+                            cout << "|         ESTADO DEL PEDIDO: EN CURSO                 |"<< endl;
+                            cout << "|                                                     |"<< endl;
+                            cout << " ===================================================== "<< endl;
+                            break;
+                        case 2:
+                            cout << "|                                                     |"<< endl;
+                            cout << "|         ESTADO DEL PEDIDO: COMPLETADO               |"<< endl;
+                            cout << "|                                                     |"<< endl;
+                            cout << " ===================================================== "<< endl;
+                            break;
+                        case 3:
+                            cout << "|                                                     |"<< endl;
+                            cout << "|         ESTADO DEL PEDIDO: CANCELADO                |"<< endl;
+                            cout << "|                                                     |"<< endl;
+                            cout << " ===================================================== "<< endl;
+                            break;
+                        case 0:
+                            errorPie("LOS ESTADOS SE INGRESAN CON 1, 2 o 3");
+                            break;
+                    }
+                    cin.ignore();
                     break;
                 case 3:
+                    cout << " ====================================================== "<< endl;
+                    cout << "|                   LISTAR PEDIDO                      |"<< endl;
+                    cout << "         INGRESE EL ID DEL PEDIDO: ";
+                    cin >> id;
+                    cout << endl;
+                    cout << " ======================================================"<< endl;
+                    if(!listarPedidoID(&id)){
+                        errorPie("EL PEDIDO NO SE ENCUENTRA EN EL ARCHIVO");
+                    }
+                    cin.ignore();
                     break;
                 case 4:
+                    listarTodosPedidos();
+                    cin.ignore();
                     break;
                 case 0:
                     break;
-                cin.ignore();
-                cin.get();
                 }
+                cin.get();
+                break;
             case 4:
                 cout << "UNDER CONSTRUCTION." << endl;
                 cin.ignore();
                 cin.get();
                 break;
             case 5:
-                cout << "UNDER CONSTRUCTION." << endl;
+                PresentacionSubmenuConfig();
+                cin >> op;
+                system("cls");
+                switch(op){
+                    case 1:
+                        if (realizarBackup()){
+                            mensageExito("BACKUP COMPLETADO");
+                        }
+                        else{
+                            errorPie("BACKUP CANCELADO");
+                        }
+                        break;
+                    case 2:
+                        if (restaurarBackup()){
+                            mensageExito("RESTAURACION COMPLETADA");
+                        }
+                        else{
+                            errorPie("RESTAURACION CANCELADA");
+                        }
+                        break;
+                    case 0:
+                        break;
+                }
                 cin.ignore();
                 cin.get();
                 break;

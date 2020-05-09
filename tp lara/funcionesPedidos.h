@@ -7,16 +7,13 @@ bool buscarCliente(int*id){
     struct cliente reg;
     FILE*p=fopen(ARCHIVOCLIENTES,"rb");
     if(p==NULL){
-        cout << endl << endl;
-        system("color 4f");
-        cout << " ===================================================== "<< endl;
-        cout << "|        EL ARCHIVO NO SE PUDO ABRIR                  |" << endl;
-        cout << " ===================================================== "<< endl;
-        return 0;
+        errorArchivo();
+        return false;
     }
     while(fread(&reg,sizeof reg,1,p)==1){
         if (*id==reg.IDcliente){
             if(!reg.estado){
+                errorEncabezado("EL CLIENTE NO ESTA DISPONIBLE");
                 fclose(p);
                 return false;
             }
@@ -24,6 +21,7 @@ bool buscarCliente(int*id){
             return true;
         }
     }
+    errorEncabezado("NO SE ENCONTRO EL CLIENTE");
     fclose(p);
     return false;
 }
@@ -31,12 +29,8 @@ float buscarImporte(int*id){
     struct plato reg;
     FILE*p=fopen(ARCHIVOPLATOS,"rb");
     if(p==NULL){
-        cout << endl << endl;
-        system("color 4f");
-        cout << " ===================================================== "<< endl;
-        cout << "|        EL ARCHIVO NO SE PUDO ABRIR                  |" << endl;
-        cout << " ===================================================== "<< endl;
-        return 0;
+        errorArchivo();
+        return -1;
     }
     while(fread(&reg,sizeof reg,1,p)==1){
         if (*id==reg.IDplato){
@@ -49,8 +43,19 @@ float buscarImporte(int*id){
         }
     }
     fclose(p);
-    return -1;
+    return -2;
 }
+bool guardarPedido(struct pedido*reg){
+    FILE*p=fopen(ARCHIVOPEDIDOS,"ab");
+    if(p==NULL){
+        errorArchivo();
+        return false;
+    }
+    fwrite(reg,sizeof reg,1,p);
+    fclose(p);
+    return true;
+}
+
 //funciones de pantalla
 void presentacionSubmenuPedidos(){
 cout << " ===================================================== "<< endl;
@@ -68,19 +73,89 @@ cout << " ===================================================== "<< endl;
 cout << "|                       L A R A                       |"<< endl;
 cout << " ===================================================== "<< endl;
 }
+void listarPedido(struct pedido*reg){
+int espacios;
+    cout << " ====================================================== "<< endl;
+    cout << "|             ID PEDIDO: " << reg->IDpedido;
+    espacios=TAMCELDACLIENTE-contarCifrasInt(reg->IDpedido);
+    ponerEspacios(&espacios);
+    cout << "|" << endl;
+    cout << "|            ID CLIENTE: " << reg->IDcliente;
+    espacios=TAMCELDACLIENTE-contarCifrasInt(reg->IDcliente);
+    ponerEspacios(&espacios);
 
-//funciones de validacion
+    cout << "|" << endl;
+    cout << "|              ID PLATO: " << reg->IDplato;
+    espacios=TAMCELDACLIENTE-contarCifrasInt(reg->IDplato);
+    ponerEspacios(&espacios);
 
+    cout << "|" << endl;
+    cout << "|               IMPORTE: " << reg->imp;
+    espacios=TAMCELDACLIENTE-contarCifrasFloat(reg->imp);
+    ponerEspacios(&espacios);
+
+    cout << "|" << endl;
+    cout << "|                 FECHA: ";
+    if(reg->fechaPedido.dia<10) cout << "0";
+    cout << reg->fechaPedido.dia << "/";
+    if(reg->fechaPedido.mes<10) cout << "0";
+    cout << reg->fechaPedido.mes <<"/" << reg->fechaPedido.anio;
+    cout << "                    |" << endl;
+
+    cout << "|            VALORACION: " << reg->valoracion;
+    espacios=TAMCELDACLIENTE-contarCifrasFloat(reg->valoracion);
+    ponerEspacios(&espacios);
+
+    cout << "|" << endl;
+    cout << "|                ESTADO: ";
+    switch(reg->estado){
+    case 1:
+        cout << "PEDIDO EN CURSO               |" << endl;
+        break;
+    case 2:
+        cout << "PEDIDO COMPLETADO             |" << endl;
+        break;
+    case 3:
+        cout << "PEDIDO CANCELADO              |" << endl;
+        break;
+    }
+    cout << " ====================================================== "<< endl;
+
+}
+bool listarPedidoID(int*id){
+    struct pedido reg;
+    FILE*p=fopen(ARCHIVOPEDIDOS,"rb");
+    if(p==NULL){
+        errorArchivo();
+        return false;
+    }
+    while(fread(&reg,sizeof reg,1,p)==1){
+        if(*id==reg.IDpedido){
+            listarPedido(&reg);
+            fclose(p);
+            return true;
+        }
+    }
+    return false;
+}
+
+void listarTodosPedidos(){
+    struct pedido reg;
+    FILE*p=fopen(ARCHIVOPEDIDOS,"rb");
+    if(p==NULL){
+        errorArchivo();
+    }
+    while(fread(&reg,sizeof reg,1,p)==1){
+        listarPedido(&reg);
+    }
+}
 
 //funciones de carga
 int asignarIDpedido(){
     struct pedido reg;
-    FILE*p=fopen(ARCHIVOPEDIDOS,"rb");
+    FILE*p=fopen(ARCHIVOPEDIDOS,"rb+");
     if(p==NULL){
-        cout << endl << endl;
-        system("color 4f");
-        cout << " ===================================================== "<< endl;
-        cout << "|        EL ARCHIVO NO SE PUDO ABRIR                  |"<<endl;
+        errorArchivo();
         return -1;
     }
     if(fread(&reg,sizeof reg,1,p)==0){
@@ -91,7 +166,7 @@ int asignarIDpedido(){
         fseek(p,-sizeof reg,2);
         fread(&reg,sizeof reg,1,p);
         fclose(p);
-        return reg.IDcliente+1;
+        return reg.IDpedido+1;
     }
 }
 bool cargarPedidoCliente(int*id){
@@ -105,9 +180,15 @@ bool cargarPedidoCliente(int*id){
 bool cargarPedidoPlato(int*id,float*imp){
     cin>> *id;
     *imp=buscarImporte(id);
+
     if(*imp==-1){
+        errorEncabezado("EL PLATO ES NO ESTA DISPONIBLE");
         return false;
-    };
+    }
+    if(*imp==-2){
+        errorEncabezado("EL PLATO ES INEXISTENTE");
+        return false;
+    }
     return true;
 }
 bool cargarPedidoCant(int*id){
@@ -118,7 +199,7 @@ bool cargarPedidoCant(int*id){
     return true;
 }
 bool cargarPedidoFecha(struct pedido*reg){
-    cout << "           FECHA DE PEDIDO " << endl;
+    cout << "           FECHA DE PEDIDO DD/MM/AAAA" << endl;
     cout << "                      DIA: ";
     cin >> reg->fechaPedido.dia;
     cout << "                      MES: ";
@@ -144,81 +225,80 @@ bool cargarPedidoValoracion(float*valoracion){
     }
     return true;
 }
-bool modificarPedido(int*id){
+bool cargarEstado(int*estado){
+    cout << "                   ESTADO: ";
+    cin >>*estado;
+    if(*estado<1||*estado>3){
+        return false;
+    }
+    return true;
+}
+int modificarPedido(int*id){
     struct pedido reg;
     FILE*p=fopen(ARCHIVOPEDIDOS,"rb+");
     if(p==NULL){
-        cout << endl << endl;
-        system("color 4f");
-        cout << " ===================================================== "<< endl;
-        cout << "|        EL ARCHIVO NO SE PUDO ABRIR                  |" << endl;
-        return false;
+        errorArchivo();
     }
     while(fread(&reg,sizeof reg,1,p)==1){
         if(*id==reg.IDpedido){
-            cin >> reg.estado;
-            if(reg.estado<1||reg.estado>3){
-                return false;
-            }
-            else{
-                fseek(p,(ftell(p)-sizeof reg),0);
-                fwrite(&reg,sizeof reg,1,p);
+            if(!cargarEstado(&reg.estado)){
                 fclose(p);
-                return true;
+                return 0;
             }
+            fseek(p,(ftell(p)-sizeof reg),0);
+            fwrite(&reg,sizeof reg,1,p);
+            fclose(p);
+            return reg.estado;
         }
     }
     fclose(p);
-    return false;
+    return 0;
 }
 bool cargarPedido(){
     struct pedido reg;
     FILE*p=fopen(ARCHIVOPEDIDOS,"ab");
     if(p==NULL){
-        cout << endl << endl;
-        system("color 4f");
-        cout << " ===================================================== "<< endl;
-        cout << "|        EL ARCHIVO NO SE PUDO ABRIR                  |"<<endl;
+        errorArchivo();
         return false;
     }
-    system("cls");
     cout << " ===================================================== "<< endl;
     cout << "|             INGRESO DE NUEVO PEDIDO                 |"<< endl;
     cout << " ===================================================== "<< endl;
-
-    cout << "                        ID: ";
+    cout << "                 ID PEDIDO: ";
     reg.IDpedido=asignarIDpedido();
     cout << reg.IDpedido << endl;
-
     if(!cargarPedidoCliente(&reg.IDcliente)){
-        cout << "NO SE PUDO ENCONTRAR EL NUMERO DE CLIENTE " << reg.IDcliente << endl;
         fclose(p);
         return false;
     }
+    cout << "                 ID PLATO : ";
     if(!cargarPedidoPlato(&reg.IDplato,&reg.imp)){
-        cout << "NO SE PUDO ENCONTRAR EL NUMERO DE PLATO " << reg.IDplato << endl;
+        errorEncabezado("NO SE PUDO ENCONTRAR EL PLATO");
         fclose(p);
         return false;
     }
+    cout << "                 CANTIDAD :";
     if(!cargarPedidoCant(&reg.cantidad)){
-        cout << "LA CANTIDAD NO PUEDE SER MENOR A 1" << reg.IDplato << endl;
+        errorEncabezado("LA CANTIDAD NO PUEDE SER MENOR A 1");
         fclose(p);
         return false;
     }
-    else{
-        cout << "importe:" << reg.imp;
-    }
+    cout << "                  IMPORTE :" << reg.imp << endl;
     if(!cargarPedidoFecha(&reg)){
-        cout << "LA FECHA NO ES UNA FECHA VALIDA." << endl;
+        errorEncabezado("LA FECHA NO ES UNA FECHA VALIDA.");
         fclose(p);
         return false;
     }
+    cout << "               VALORACION :";
     if(!cargarPedidoValoracion(&reg.valoracion)){
-        cout << "LA VALORACION NO PUEDE SER MENOR A 1 NI MAYOR A 10" << endl;
+        errorEncabezado("LA VALORACION NO PUEDE SER MENOR A 1 NI MAYOR A 10");
         fclose(p);
         return false;
     }
     reg.estado=1;
+    cout << "                    ESTADO: PEDIDO EN CURSO";
+    cin.ignore();
+    cin.get();
     fwrite(&reg,sizeof reg,1,p);
     fclose(p);
     return true;
